@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { theme } from "../utils/utils";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { theme } from '../utils/utils';
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   useEffect(() => {
-    // Xóa server-side injected CSS
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
@@ -19,3 +19,10 @@ export default function MyApp({ Component, pageProps }) {
     </ThemeProvider>
   );
 }
+
+MyApp.propTypes = {
+  Component: PropTypes.elementType.isRequired,
+  pageProps: PropTypes.object.isRequired,
+};
+
+export default MyApp;
