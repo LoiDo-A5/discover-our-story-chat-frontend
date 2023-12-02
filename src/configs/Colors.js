@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 export default {
-  Primary: "#000000",
+  Primary: "#1668C3",
   Secondary: "#EDE7F6",
   Text: "#363636",
   Golden: "#b2973f",
