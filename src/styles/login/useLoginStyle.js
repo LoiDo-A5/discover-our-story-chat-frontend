@@ -5,15 +5,12 @@ import Colors from "../../configs/Colors";
 const useStyles = makeStyles(() => ({
   background: {
     "&.MuiContainer-root": {
-      maxWidth: "83% !important",
-      height: "95vh",
-      width: "100%",
+      height: "97vh",
       backgroundSize: "cover",
       backgroundPosition: "center",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "red",
     },
   },
 }));

@@ -18,7 +18,7 @@ const LoginForm: React.FC<LoginProps> = ({ onSubmit }) => {
   };
 
   return (
-    <Container maxWidth="xs" className={classes.background}>
+    <Container className={classes.background}>
       <form onSubmit={handleSubmit}>
         <TextField
           label="Username"
