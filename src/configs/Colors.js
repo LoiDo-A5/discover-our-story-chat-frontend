@@ -178,6 +178,7 @@ export default {
   Blue16: "#40A9FF",
   Blue17: "#0059B2",
   Blue18: "#48FFE9",
+  Blue19: "#1668C3",
 
   // Neutral:
   Neutral: "#E6E6E6",

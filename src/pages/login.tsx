@@ -1,6 +1,8 @@
 import React, { useState, FormEvent } from "react";
 import useStyles from "../styles/login/useLoginStyle";
 import { Button, Container, TextField } from "@mui/material";
+import Logo from "../images/logo.png";
+import Image from "next/image";
 
 interface LoginProps {
   onSubmit: (username: string, password: string) => void;
@@ -20,6 +22,10 @@ const LoginForm: React.FC<LoginProps> = ({ onSubmit }) => {
   return (
     <Container className={classes.background}>
       <form onSubmit={handleSubmit}>
+        <div className={classes.wrapLogo}>
+          <Image src={Logo} alt="" className={classes.logoChatRoom} />
+        </div>
+        <div className={classes.title}>CHAT ROOM</div>
         <TextField
           label="Username"
           fullWidth
