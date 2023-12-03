@@ -5,11 +5,14 @@ import Logo from "../images/logo.png";
 import Image from "next/image";
 import { axiosPost } from "../utils/apis/axios";
 import API from "../configs/API";
+import { useDispatch } from "react-redux";
+import { login, loginFailure } from "../redux/reducer/authSlice";
 
 interface LoginProps {}
 
 const LoginForm: React.FC<LoginProps> = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -19,7 +22,11 @@ const LoginForm: React.FC<LoginProps> = () => {
       username: username,
       password: password,
     });
-    console.log("success", success, data);
+    if (success) {
+      dispatch(login(data));
+    } else {
+      dispatch(loginFailure(data));
+    }
   };
 
   return (
