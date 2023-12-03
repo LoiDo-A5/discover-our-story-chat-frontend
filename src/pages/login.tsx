@@ -3,20 +3,23 @@ import useStyles from "../styles/login/useLoginStyle";
 import { Button, Container, TextField } from "@mui/material";
 import Logo from "../images/logo.png";
 import Image from "next/image";
+import { axiosPost } from "../utils/apis/axios";
+import API from "../configs/API";
 
-interface LoginProps {
-  onSubmit: (username: string, password: string) => void;
-}
+interface LoginProps {}
 
-const LoginForm: React.FC<LoginProps> = ({ onSubmit }) => {
+const LoginForm: React.FC<LoginProps> = () => {
   const classes = useStyles();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // Handle the login logic here
-    onSubmit(username, password);
+    const { success, data } = await axiosPost(API.AUTH.LOGIN, {
+      username: username,
+      password: password,
+    });
+    console.log("success", success, data);
   };
 
   return (
