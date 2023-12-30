@@ -30,9 +30,10 @@ const useStyles = makeStyles(() => ({
     color: Colors.Blue19,
   },
   signupLink: {
-    marginTop: 8,
+    marginTop: 16,
     display: "flex",
     justifyContent: "flex-end",
+    cursor: "pointer",
   },
 }));
 

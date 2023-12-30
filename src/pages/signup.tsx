@@ -1,4 +1,3 @@
-// SignupForm.tsx
 import React, { useState, FormEvent, useEffect } from "react";
 import useStyles from "../styles/login/useLoginStyle";
 import { Button, Container, TextField, Link } from "@mui/material";
@@ -21,11 +20,34 @@ const SignupForm: React.FC<SignupFormProps> = () => {
     const [password, setPassword] = useState<string>("");
     const [confirmPassword, setConfirmPassword] = useState<string>("");
 
+    const validateForm = () => {
+        if (!email || !phone || !password || !confirmPassword) {
+            ToastTopHelper.error("All fields are required");
+            return false;
+        }
+
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            ToastTopHelper.error("Invalid email address");
+            return false;
+        }
+
+        if (!/^[0-9]+$/.test(phone)) {
+            ToastTopHelper.error("Phone number must contain only digits");
+            return false;
+        }
+
+        if (password !== confirmPassword) {
+            ToastTopHelper.error("Password and Confirm Password do not match");
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
 
-        if (password !== confirmPassword) {
-            ToastTopHelper.error('Password and Confirm Password do not match');
+        if (!validateForm()) {
             return;
         }
 
@@ -33,15 +55,18 @@ const SignupForm: React.FC<SignupFormProps> = () => {
             email: email,
             phone: phone,
             password1: password,
-            password2: confirmPassword
+            password2: confirmPassword,
         });
 
         if (success) {
             router.push(Routes.Home);
-        } else {
-            ToastTopHelper.error('Signup failed');
         }
     };
+
+
+    const handleNavigateSignUp = () => {
+        router.push(Routes.Login);
+    }
 
     return (
         <Container className={classes.background}>
@@ -86,8 +111,8 @@ const SignupForm: React.FC<SignupFormProps> = () => {
                 <Button type="submit" variant="contained" color="primary" fullWidth>
                     Sign Up
                 </Button>
-                <div className={classes.signupLink}>
-                    <Link href={Routes.Login} variant="body2">
+                <div onClick={handleNavigateSignUp} className={classes.signupLink}>
+                    <Link variant="body2">
                         Already have an account? Sign in
                     </Link>
                 </div>

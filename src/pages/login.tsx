@@ -36,6 +36,10 @@ const LoginForm: React.FC<LoginProps> = () => {
     }
   };
 
+  const handleNavigateSignUp = () => {
+    router.push(Routes.Signup);
+  }
+
   useEffect(() => {
     if (isLoggedIn) {
       router.push(Routes.Home);
@@ -69,8 +73,8 @@ const LoginForm: React.FC<LoginProps> = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
-        <div className={classes.signupLink}>
-          <Link href={Routes.Signup} variant="body2">
+        <div onClick={handleNavigateSignUp} className={classes.signupLink}>
+          <Link variant="body2">
             Sign up for me
           </Link>
         </div>
