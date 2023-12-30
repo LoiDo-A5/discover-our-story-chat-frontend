@@ -1,18 +1,24 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import useStyles from "../styles/login/useLoginStyle";
 import { Button, Container, TextField } from "@mui/material";
 import Logo from "../images/logo.png";
 import Image from "next/image";
 import { axiosPost } from "../utils/apis/axios";
 import API from "../configs/API";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, loginFailure } from "../redux/reducer/authSlice";
+import Routes from '../utils/Route';
+import { useRouter } from "next/router";
 
-interface LoginProps {}
+interface LoginProps { }
 
 const LoginForm: React.FC<LoginProps> = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const router = useRouter();
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -23,12 +29,19 @@ const LoginForm: React.FC<LoginProps> = () => {
       password: password,
     });
     if (success) {
+      router.push(Routes.Home);
       dispatch(login(data));
     } else {
       dispatch(loginFailure(data));
     }
   };
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push(Routes.Home);
+    }
+  }, [isLoggedIn, router]);
+  
   return (
     <Container className={classes.background}>
       <form onSubmit={handleSubmit}>
