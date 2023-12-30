@@ -2,38 +2,40 @@ import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import Image from 'next/image';
-import useStyles from './styles';
 import Logo from "../../images/logo.png";
-import { useDispatch } from 'react-redux';
-// import { logout } from 'redux/reducer/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/reducer/authSlice';
 import { useRouter } from 'next/router';
 import Routes from '../../utils/Route';
+import useStyles from './styles';
 
 const HeaderPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
+  const user = useSelector((state) => state.auth.account.user);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const open = Boolean(anchorEl);
 
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logout());
     router.push(Routes.Home);
+  };
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClickMyAccount = () => {
+    router.push(Routes.MyAccount);
   };
 
 
@@ -45,24 +47,54 @@ const HeaderPage: React.FC = () => {
         </Typography>
 
         <div>
-          <IconButton
-            size="large"
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleMenuOpen}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box>
+            <Tooltip title={'account_setting'}>
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+              >
+                <Avatar
+                  className={classes.avatarProfile}
+                  src={user?.avatar}
+                />
+              </IconButton>
+            </Tooltip>
+          </Box>
+
           <Menu
-            id="header-menu"
             anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            classes={{
+              paper: classes.menuPaper,
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <MenuItem onClick={handleMenuClose}>Menu Item 1</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Menu Item 2</MenuItem>
-            <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+            <div className={classes.wrapItemMenuProfile}>
+              <div className={classes.textAlignItemProfile}>
+                <Avatar
+                  className={classes.avatarItemMenuProfile}
+                  src={user?.avatar}
+                />
+                <div className={classes.textUserName}>{user?.name}</div>
+                <div className={classes.textEmail}>{user?.email}</div>
+              </div>
+            </div>
+
+            <Divider />
+            <MenuItem onClick={handleClickMyAccount}>{'My account'}</MenuItem>
+            <MenuItem
+              onClick={handleClose}
+              className={classes.menuItemHelp}
+            >
+              {'Help'}
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogOut}>{'Sign out'}</MenuItem>
           </Menu>
         </div>
       </Toolbar>
