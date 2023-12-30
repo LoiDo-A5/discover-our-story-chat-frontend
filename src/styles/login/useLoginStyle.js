@@ -29,6 +29,11 @@ const useStyles = makeStyles(() => ({
     fontSize: 32,
     color: Colors.Blue19,
   },
+  signupLink: {
+    marginTop: 8,
+    display: "flex",
+    justifyContent: "flex-end",
+  },
 }));
 
 export default useStyles;

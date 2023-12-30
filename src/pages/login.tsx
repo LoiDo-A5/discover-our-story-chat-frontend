@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, useEffect } from "react";
 import useStyles from "../styles/login/useLoginStyle";
-import { Button, Container, TextField } from "@mui/material";
+import { Button, Container, TextField, Link } from "@mui/material";
 import Logo from "../images/logo.png";
 import Image from "next/image";
 import { axiosPost } from "../utils/apis/axios";
@@ -41,7 +41,7 @@ const LoginForm: React.FC<LoginProps> = () => {
       router.push(Routes.Home);
     }
   }, [isLoggedIn, router]);
-  
+
   return (
     <Container className={classes.background}>
       <form onSubmit={handleSubmit}>
@@ -69,6 +69,11 @@ const LoginForm: React.FC<LoginProps> = () => {
         <Button type="submit" variant="contained" color="primary" fullWidth>
           Login
         </Button>
+        <div className={classes.signupLink}>
+          <Link href={Routes.Signup} variant="body2">
+            Sign up for me
+          </Link>
+        </div>
       </form>
     </Container>
   );
