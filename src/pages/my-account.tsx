@@ -6,6 +6,7 @@ import Routes from '../utils/Route';
 import { useRouter } from "next/router";
 import MyAccountNav from "@/commons/MyAccountNav";
 import useStyles from "../styles/my-account/useMyAccountStyle";
+import PrivateRoute from "@/commons/PrivateRoute";
 
 interface BreadCrumbItem {
     to: string;
@@ -41,46 +42,48 @@ const MyAccount: React.FC<MyAccountProps> = () => {
     ];
 
     return (
-        <div className={classes.wrapMyAccountPage} style={{ width: '100%'}}>
-            <Container className={classes.customContainer}>
-                <Breadcrumbs>
-                    {breadCrumbs.map((item, index) => (
-                        <Link href={item.to} key={index}>
-                            <Typography color={item.active ? 'textPrimary' : 'inherit'}>{item.text}</Typography>
-                        </Link>
-                    ))}
-                </Breadcrumbs>
-                <h1 className={classes.heading}>{'my_account'}</h1>
+        <PrivateRoute>
+            <div className={classes.wrapMyAccountPage} style={{ width: '100%' }}>
+                <Container className={classes.customContainer}>
+                    <Breadcrumbs>
+                        {breadCrumbs.map((item, index) => (
+                            <Link href={item.to} key={index}>
+                                <Typography color={item.active ? 'textPrimary' : 'inherit'}>{item.text}</Typography>
+                            </Link>
+                        ))}
+                    </Breadcrumbs>
+                    <h1 className={classes.heading}>{'my_account'}</h1>
 
-                <Box sx={{ pt: 3 }}>
-                    <Grid
-                        container
-                        spacing={3}
-                    >
+                    <Box sx={{ pt: 3 }}>
                         <Grid
-                            item
-                            xs={12}
-                            lg={3}
+                            container
+                            spacing={3}
                         >
-                            <MyAccountNav
-                                user={user}
-                                userProfile={userProfile}
-                                setUserProfile={setUserProfile}
-                            />
-                        </Grid>
+                            <Grid
+                                item
+                                xs={12}
+                                lg={3}
+                            >
+                                <MyAccountNav
+                                    user={user}
+                                    userProfile={userProfile}
+                                    setUserProfile={setUserProfile}
+                                />
+                            </Grid>
 
-                        <Grid
-                            item
-                            xs={12}
-                            lg={9}
-                        >
-                            {/* Your other content */}
-                            <div>123</div>
+                            <Grid
+                                item
+                                xs={12}
+                                lg={9}
+                            >
+                                {/* Your other content */}
+                                <div>123</div>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Box>
-            </Container>
-        </div>
+                    </Box>
+                </Container>
+            </div>
+        </PrivateRoute>
     );
 };
 
