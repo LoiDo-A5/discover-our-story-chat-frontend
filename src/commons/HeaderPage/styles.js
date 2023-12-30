@@ -1,5 +1,4 @@
 import { makeStyles } from "@mui/styles";
-// import Colors from "../../configs/Colors";
 import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles(() => ({

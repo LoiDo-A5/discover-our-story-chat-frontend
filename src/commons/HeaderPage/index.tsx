@@ -34,71 +34,73 @@ const HeaderPage: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const handleClickMyAccount =  () => {
+  const handleClickMyAccount = () => {
     router.push(Routes.MyAccount);
   };
 
 
   return (
-    <AppBar position="fixed">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Image src={Logo} alt="" className={classes.logoChatRoom} />
-        </Typography>
+    <div>
+      <AppBar position="fixed">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Image src={Logo} alt="" className={classes.logoChatRoom} />
+          </Typography>
 
-        <div>
-          <Box>
-            <Tooltip title={'account_setting'}>
-              <IconButton
-                onClick={handleClick}
-                size="small"
-                sx={{ ml: 2 }}
-              >
-                <Avatar
-                  className={classes.avatarProfile}
-                  src={user?.avatar}
-                />
-              </IconButton>
-            </Tooltip>
-          </Box>
+          <div>
+            <Box>
+              <Tooltip title={'account_setting'}>
+                <IconButton
+                  onClick={handleClick}
+                  size="small"
+                  sx={{ ml: 2 }}
+                >
+                  <Avatar
+                    className={classes.avatarProfile}
+                    src={user?.avatar}
+                  />
+                </IconButton>
+              </Tooltip>
+            </Box>
 
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={open}
-            onClose={handleClose}
-            onClick={handleClose}
-            classes={{
-              paper: classes.menuPaper,
-            }}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-          >
-            <div className={classes.wrapItemMenuProfile}>
-              <div className={classes.textAlignItemProfile}>
-                <Avatar
-                  className={classes.avatarItemMenuProfile}
-                  src={user?.avatar}
-                />
-                <div className={classes.textUserName}>{user?.name}</div>
-                <div className={classes.textEmail}>{user?.email}</div>
-              </div>
-            </div>
-
-            <Divider />
-            <MenuItem onClick={handleClickMyAccount}>{'My account'}</MenuItem>
-            <MenuItem
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
               onClick={handleClose}
-              className={classes.menuItemHelp}
+              classes={{
+                paper: classes.menuPaper,
+              }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              {'Help'}
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={handleLogOut}>{'Sign out'}</MenuItem>
-          </Menu>
-        </div>
-      </Toolbar>
-    </AppBar>
+              <div className={classes.wrapItemMenuProfile}>
+                <div className={classes.textAlignItemProfile}>
+                  <Avatar
+                    className={classes.avatarItemMenuProfile}
+                    src={user?.avatar}
+                  />
+                  <div className={classes.textUserName}>{user?.name}</div>
+                  <div className={classes.textEmail}>{user?.email}</div>
+                </div>
+              </div>
+
+              <Divider />
+              <MenuItem onClick={handleClickMyAccount}>{'My account'}</MenuItem>
+              <MenuItem
+                onClick={handleClose}
+                className={classes.menuItemHelp}
+              >
+                {'Help'}
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleLogOut}>{'Sign out'}</MenuItem>
+            </Menu>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 };
 

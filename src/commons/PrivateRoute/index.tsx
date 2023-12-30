@@ -1,4 +1,3 @@
-// components/PrivateRoute.tsx
 import React, { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
