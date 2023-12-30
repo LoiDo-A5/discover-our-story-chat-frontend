@@ -9,9 +9,16 @@ import Menu from '@mui/material/Menu';
 import Image from 'next/image';
 import useStyles from './styles';
 import Logo from "../../images/logo.png";
+import { useDispatch } from 'react-redux';
+// import { logout } from 'redux/reducer/authSlice';
+import { logout } from '../../redux/reducer/authSlice';
+import { useRouter } from 'next/router';
+import Routes from '../../utils/Route';
 
 const HeaderPage: React.FC = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -22,6 +29,13 @@ const HeaderPage: React.FC = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogOut = () => {
+    setAnchorEl(null);
+    dispatch(logout());
+    router.push(Routes.Home);
+  };
+
 
   return (
     <AppBar position="fixed">
@@ -48,7 +62,7 @@ const HeaderPage: React.FC = () => {
           >
             <MenuItem onClick={handleMenuClose}>Menu Item 1</MenuItem>
             <MenuItem onClick={handleMenuClose}>Menu Item 2</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Menu Item 3</MenuItem>
+            <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
           </Menu>
         </div>
       </Toolbar>
