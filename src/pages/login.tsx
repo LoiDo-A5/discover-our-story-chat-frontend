@@ -1,5 +1,4 @@
 import React, { useState, FormEvent, useEffect } from "react";
-import useStyles from "../styles/login/useLoginStyle";
 import { Button, Container, TextField, Link } from "@mui/material";
 import Logo from "../images/logo.png";
 import Image from "next/image";
@@ -9,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, loginFailure } from "../redux/reducer/authSlice";
 import Routes from '../utils/Route';
 import { useRouter } from "next/router";
+import useStyles from "../styles/login/useLoginStyle";
 
 interface LoginProps { }
 

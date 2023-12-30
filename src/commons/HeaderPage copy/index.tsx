@@ -23,7 +23,7 @@ const HeaderPage: React.FC = () => {
   const handleLogOut = () => {
     setAnchorEl(null);
     dispatch(logout());
-    router.push(Routes.Login);
+    router.push(Routes.Home);
   };
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -34,7 +34,7 @@ const HeaderPage: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const handleClickMyAccount =  () => {
+  const handleClickMyAccount = () => {
     router.push(Routes.MyAccount);
   };
 
