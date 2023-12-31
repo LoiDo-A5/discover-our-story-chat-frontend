@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import HeaderPage from '../HeaderPage';
+import FooterPage from '../FooterPage';
 
 interface LayoutProps {
     children: ReactNode;
@@ -12,7 +13,7 @@ interface LayoutProps {
       <main>{children}</main>
 
       <footer>
-        {/* Footer content */}
+        <FooterPage/>
       </footer>
     </div>
   );
