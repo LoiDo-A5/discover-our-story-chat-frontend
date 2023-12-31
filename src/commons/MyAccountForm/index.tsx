@@ -3,6 +3,10 @@ import { Box, Button, Grid } from '@mui/material';
 import useStyles from './styles';
 import clsx from 'clsx';
 import FormInput from '../Form/FormInput';
+import { axiosPatch } from '@/utils/apis/axios';
+import API from '@/configs/API';
+import { useDispatch } from 'react-redux';
+import { updateAccount } from '@/redux/reducer/authSlice';
 
 interface UserProfile {
   name?: string;
@@ -25,6 +29,7 @@ interface InputItem {
 
 const MyAccountForm: FC<MyAccountFormProps> = ({ defaultUserData, userProfile, setUserProfile }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const disabled = JSON.stringify(defaultUserData) === JSON.stringify(userProfile);
 
@@ -48,7 +53,14 @@ const MyAccountForm: FC<MyAccountFormProps> = ({ defaultUserData, userProfile, s
   ];
 
   const handleSubmitProfile = async () => {
-    // Implement your profile submission logic here
+    // const formData = new FormData();
+    // formData.append('avatar', imageKey);
+    // formData.append('name', userProfile?.name);
+    // const { success, data } = await axiosPatch(API.AUTH.ACCOUNT_INFO, formData);
+
+    // if (success) {
+    //   dispatch(updateAccount(data));
+    // }
   };
 
   return (
