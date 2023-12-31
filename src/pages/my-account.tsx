@@ -6,6 +6,7 @@ import Routes from '../utils/Route';
 import MyAccountNav from "@/commons/MyAccountNav";
 import useStyles from "../styles/my-account/useMyAccountStyle";
 import PrivateRoute from "@/commons/PrivateRoute";
+import MyAccountForm from "@/commons/MyAccountForm";
 
 interface BreadCrumbItem {
     to: string;
@@ -13,19 +14,32 @@ interface BreadCrumbItem {
     active?: boolean;
 }
 
-interface MyAccountProps { }
+interface UserProfile {
+    avatar: any;
+    name: string;
+    email: string;
+    phone_number: string;
+}
 
-const MyAccount: React.FC<MyAccountProps> = () => {
+interface MyAccountFormProps {
+    defaultUserData: UserProfile;
+    userProfile: UserProfile;
+    setUserProfile: React.Dispatch<React.SetStateAction<UserProfile>>;
+}
+
+
+const MyAccount: React.FC<MyAccountFormProps> = () => {
     const classes = useStyles();
     const user = useSelector((state) => state.auth.account.user);
 
-    const defaultUserData = {
+    const defaultUserData: UserProfile = {
         avatar: user?.avatar,
         name: user?.name || '',
         email: user?.email || '',
         phone_number: user?.phone_number || '',
     };
-    const [userProfile, setUserProfile] = React.useState(defaultUserData);
+
+    const [userProfile, setUserProfile] = React.useState<UserProfile>(defaultUserData);
 
     const breadCrumbs: BreadCrumbItem[] = [
         {
@@ -74,8 +88,11 @@ const MyAccount: React.FC<MyAccountProps> = () => {
                                 xs={12}
                                 lg={9}
                             >
-                                {/* Your other content */}
-                                <div>123</div>
+                                <MyAccountForm
+                                    defaultUserData={defaultUserData}
+                                    userProfile={userProfile}
+                                    setUserProfile={setUserProfile}
+                                />
                             </Grid>
                         </Grid>
                     </Box>
