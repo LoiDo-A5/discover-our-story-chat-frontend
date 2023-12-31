@@ -2,6 +2,10 @@ import { makeStyles } from "@mui/styles";
 import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles(() => ({
+  containerHeader: {
+    // borderBottom: `1px solid ${Colors.Grey4}`,
+    // padding: '25px 0px',
+  },
   logoChatRoom: {
     display: "flex",
     justifyContent: "center",
@@ -141,7 +145,6 @@ const useStyles = makeStyles(() => ({
       height: 32,
     },
   },
-
 }));
 
 export default useStyles;

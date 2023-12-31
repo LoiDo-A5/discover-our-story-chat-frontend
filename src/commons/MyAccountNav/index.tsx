@@ -19,7 +19,7 @@ const MyAccountNav: FC<MyAccountNavProps> = ({ user, userProfile, setUserProfile
   const navItem = [
     {
       icon: PersonIcon,
-      text: 'my_account',
+      text: 'My account',
       active: true,
     },
   ];
@@ -75,7 +75,7 @@ const MyAccountNav: FC<MyAccountNavProps> = ({ user, userProfile, setUserProfile
         <div
           className={classes.pointer}
         >
-          {'view_profile'}
+          {'View profile'}
         </div>
       </div>
 

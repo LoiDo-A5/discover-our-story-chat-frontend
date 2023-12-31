@@ -1,9 +1,8 @@
 import React from "react";
 import { Container, Breadcrumbs, Box, Grid, Typography } from "@mui/material";
 import Link from 'next/link';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Routes from '../utils/Route';
-import { useRouter } from "next/router";
 import MyAccountNav from "@/commons/MyAccountNav";
 import useStyles from "../styles/my-account/useMyAccountStyle";
 import PrivateRoute from "@/commons/PrivateRoute";
@@ -25,25 +24,24 @@ const MyAccount: React.FC<MyAccountProps> = () => {
         name: user?.name || '',
         email: user?.email || '',
         phone_number: user?.phone_number || '',
-        role: user?.role,
     };
     const [userProfile, setUserProfile] = React.useState(defaultUserData);
 
     const breadCrumbs: BreadCrumbItem[] = [
         {
             to: Routes.Home,
-            text: 'home',
+            text: 'Home',
         },
         {
             to: Routes.MyAccount,
-            text: 'my_account',
+            text: 'My Account',
             active: true,
         },
     ];
 
     return (
         <PrivateRoute>
-            <div className={classes.wrapMyAccountPage} style={{ width: '100%' }}>
+            <div className={classes.wrapMyAccountPage}>
                 <Container className={classes.customContainer}>
                     <Breadcrumbs>
                         {breadCrumbs.map((item, index) => (
@@ -52,7 +50,7 @@ const MyAccount: React.FC<MyAccountProps> = () => {
                             </Link>
                         ))}
                     </Breadcrumbs>
-                    <h1 className={classes.heading}>{'my_account'}</h1>
+                    <h1 className={classes.heading}>{'My Account'}</h1>
 
                     <Box sx={{ pt: 3 }}>
                         <Grid

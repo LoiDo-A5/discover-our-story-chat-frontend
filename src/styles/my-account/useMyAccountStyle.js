@@ -3,9 +3,9 @@ import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles(() => ({
   wrapMyAccountPage: {
-    paddingTop: 24,
+    paddingTop: 70,
     background: Colors.Grey1,
-    minHeight: "100vh", // Ensure the container takes up 100% of the viewport height
+    minHeight: "100vh",
   },
   heading: {
     marginTop: 16,
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     textTransform: "capitalize",
   },
   customContainer: {
-    maxWidth: 'none !important',
+    maxWidth: "none !important",
   },
 }));
 

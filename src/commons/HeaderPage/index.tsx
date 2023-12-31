@@ -40,7 +40,7 @@ const HeaderPage: React.FC = () => {
 
 
   return (
-    <div>
+    <div className={classes.containerHeader}>
       <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
