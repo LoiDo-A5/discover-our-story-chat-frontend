@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -18,6 +18,8 @@ const HeaderPage: React.FC = () => {
   const user = useSelector((state) => state.auth.account.user);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isClient, setIsClient] = useState(false);
+
   const open = Boolean(anchorEl);
 
   const handleLogOut = () => {
@@ -39,6 +41,11 @@ const HeaderPage: React.FC = () => {
   };
 
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+
   return (
     <div className={classes.containerHeader}>
       <AppBar position="fixed">
@@ -57,7 +64,7 @@ const HeaderPage: React.FC = () => {
                 >
                   <Avatar
                     className={classes.avatarProfile}
-                    src={user?.avatar}
+                    src={isClient ? user?.avatar : undefined}
                   />
                 </IconButton>
               </Tooltip>
@@ -78,8 +85,8 @@ const HeaderPage: React.FC = () => {
               <div className={classes.wrapItemMenuProfile}>
                 <div className={classes.textAlignItemProfile}>
                   <Avatar
-                    className={classes.avatarItemMenuProfile}
-                    src={user?.avatar}
+                    className={classes.avatarProfile}
+                    src={isClient ? user?.avatar : undefined}
                   />
                   <div className={classes.textUserName}>{user?.name}</div>
                   <div className={classes.textEmail}>{user?.email}</div>

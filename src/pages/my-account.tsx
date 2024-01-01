@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Container, Breadcrumbs, Box, Grid, Typography } from "@mui/material";
 import Link from 'next/link';
 import { useSelector } from "react-redux";
@@ -40,6 +40,7 @@ const MyAccount: React.FC<MyAccountFormProps> = () => {
     };
 
     const [userProfile, setUserProfile] = React.useState<UserProfile>(defaultUserData);
+    const [isClient, setIsClient] = React.useState(false);
 
     const breadCrumbs: BreadCrumbItem[] = [
         {
@@ -52,6 +53,10 @@ const MyAccount: React.FC<MyAccountFormProps> = () => {
             active: true,
         },
     ];
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     return (
         <PrivateRoute>
@@ -76,11 +81,13 @@ const MyAccount: React.FC<MyAccountFormProps> = () => {
                                 xs={12}
                                 lg={3}
                             >
-                                <MyAccountNav
-                                    user={user}
-                                    userProfile={userProfile}
-                                    setUserProfile={setUserProfile}
-                                />
+                                {isClient && (
+                                    <MyAccountNav
+                                        user={user}
+                                        userProfile={userProfile}
+                                        setUserProfile={setUserProfile}
+                                    />
+                                )}
                             </Grid>
 
                             <Grid
