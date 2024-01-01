@@ -12,7 +12,8 @@ interface UserProfile {
   name?: string;
   email?: string;
   phone_number?: string;
-}
+  avatarUploadFile?: any
+};
 
 interface MyAccountFormProps {
   defaultUserData: UserProfile;
@@ -53,14 +54,19 @@ const MyAccountForm: FC<MyAccountFormProps> = ({ defaultUserData, userProfile, s
   ];
 
   const handleSubmitProfile = async () => {
-    // const formData = new FormData();
-    // formData.append('avatar', imageKey);
-    // formData.append('name', userProfile?.name);
-    // const { success, data } = await axiosPatch(API.AUTH.ACCOUNT_INFO, formData);
+    const formData = new FormData();
+    if (userProfile?.avatarUploadFile) {
+      formData.append(
+        'avatar',
+        userProfile?.avatarUploadFile
+      );
+    }
+    formData.append('name', userProfile?.name || '');
+    const { success, data } = await axiosPatch(API.AUTH.ACCOUNT_INFO, formData);
 
-    // if (success) {
-    //   dispatch(updateAccount(data));
-    // }
+    if (success) {
+      dispatch(updateAccount(data));
+    }
   };
 
   return (
