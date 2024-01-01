@@ -7,6 +7,7 @@ import { axiosPatch } from '@/utils/apis/axios';
 import API from '@/configs/API';
 import { useDispatch } from 'react-redux';
 import { updateAccount } from '@/redux/reducer/authSlice';
+import { ToastTopHelper } from '@/utils/utils';
 
 interface UserProfile {
   name?: string;
@@ -65,6 +66,7 @@ const MyAccountForm: FC<MyAccountFormProps> = ({ defaultUserData, userProfile, s
     const { success, data } = await axiosPatch(API.AUTH.ACCOUNT_INFO, formData);
 
     if (success) {
+      ToastTopHelper.success("Update successfully");
       dispatch(updateAccount(data));
     }
   };
