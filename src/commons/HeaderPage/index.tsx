@@ -46,6 +46,7 @@ const HeaderPage: React.FC = () => {
   }, []);
 
 
+
   return (
     <div className={classes.containerHeader}>
       <AppBar position="fixed">
@@ -56,7 +57,7 @@ const HeaderPage: React.FC = () => {
 
           <div>
             <Box>
-              <Tooltip title={'account_setting'}>
+              <Tooltip title={'Account setting'}>
                 <IconButton
                   onClick={handleClick}
                   size="small"
@@ -83,13 +84,15 @@ const HeaderPage: React.FC = () => {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <div className={classes.wrapItemMenuProfile}>
-                <div className={classes.textAlignItemProfile}>
+                <div >
                   <Avatar
                     className={classes.avatarProfile}
                     src={isClient ? user?.avatar : undefined}
                   />
-                  <div className={classes.textUserName}>{user?.name}</div>
-                  <div className={classes.textEmail}>{user?.email}</div>
+                  <div>
+                    <div className={classes.textUserName}>{user?.name}</div>
+                    <div className={classes.textEmail}>{user?.email}</div>
+                  </div>
                 </div>
               </div>
 

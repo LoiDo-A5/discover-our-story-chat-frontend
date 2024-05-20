@@ -71,9 +71,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     flexDirection: "column",
   },
-  textAlignItemProfile: {
-    textAlign: "center",
-  },
+
   avatarItemMenuProfile: {
     "&.MuiAvatar-root": {
       width: "80px !important",
