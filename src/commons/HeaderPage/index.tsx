@@ -45,7 +45,6 @@ const HeaderPage: React.FC = () => {
     setIsClient(true);
   }, []);
 
-  console.log('useruser', user)
 
 
   return (
