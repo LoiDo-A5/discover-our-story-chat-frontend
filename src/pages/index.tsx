@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useStyles from '../styles/login/useLoginStyle';
+import useStyles from '../styles/list-room/useListRoomStyle';
 import PrivateRoute from '@/commons/PrivateRoute';
 import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
