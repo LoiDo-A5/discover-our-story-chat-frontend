@@ -4,7 +4,6 @@ function useChat(roomId) {
   const [messages, setMessages] = useState([]);
   const [ws, setWs] = useState(null);
 
-  console.log("roomId", roomId);
   useEffect(() => {
     const websocket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomId}/`);
     setWs(websocket);
