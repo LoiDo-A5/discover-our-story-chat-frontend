@@ -2,15 +2,11 @@ import { makeStyles } from "@mui/styles";
 
 import Colors from "../../configs/Colors";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   background: {
     "&.MuiContainer-root": {
-      height: "97vh",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+      height: "90vh",
+      width: "100%",
     },
   },
   wrapLogo: {
@@ -33,6 +29,24 @@ const useStyles = makeStyles(() => ({
     marginTop: 16,
     display: "flex",
     justifyContent: "flex-end",
+    cursor: "pointer",
+  },
+  boxList: {
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+    border: `1px solid ${Colors.Grey4}`,
+    paddingBottom: 25,
+  },
+  titleRoom: {
+    marginTop: 100,
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+  listItemStyle: {
+    backgroundColor: "#e1f5fe",
+    marginTop: 16,
+    height: "70px",
+    border: `1px solid ${Colors.Grey4}`,
     cursor: "pointer",
   },
 }));
