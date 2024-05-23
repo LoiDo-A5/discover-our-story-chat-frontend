@@ -6,6 +6,7 @@ import API from '@/configs/API';
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Container, Box, ListItemSecondaryAction } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChatIcon from '@mui/icons-material/Chat';
+import { useRouter } from 'next/router';
 
 interface Room {
     id: number;
@@ -15,6 +16,12 @@ interface Room {
 const HomePage: React.FC = () => {
     const classes = useStyles();
     const [rooms, setRooms] = useState<Room[]>([]);
+
+    const router = useRouter();
+
+    const goToRoom = (roomId: number) => {
+        router.push(`/room/${roomId}`);
+    };
 
     const getListRoom = async () => {
         const { success, data } = await axiosGet(API.ROOM.LIST_ROOM);
@@ -39,7 +46,7 @@ const HomePage: React.FC = () => {
                         {rooms.map((room) => {
                             const labelId = `checkbox-list-secondary-label-${room.id}`;
                             return (
-                                <ListItem key={room.id} className={classes.listItemStyle} >
+                                <ListItem key={room.id} className={classes.listItemStyle} onClick={() => goToRoom(room.id)}>
                                     <ListItemAvatar>
                                         <Avatar>
                                             <ChatIcon />
