@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
   },
   itemAvatar: {
     marginRight: 16,
+    textAlign: "center",
+    fontSize: 10,
+  },
+  textName: {
+    marginTop: 3,
   },
 }));
 

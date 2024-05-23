@@ -6,11 +6,13 @@ import useStyles from '@/styles/room/useRoomStyle';
 import { useRouter } from 'next/router';
 import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
+import { useSelector } from 'react-redux';
 
 const Room: React.FC = () => {
     const classes = useStyles();
     const router = useRouter();
     const { id } = router.query;
+    const user = useSelector((state) => state.auth.account.user);
     const [roomId, setRoomId] = useState<string | undefined>();
 
     useEffect(() => {
@@ -25,7 +27,7 @@ const Room: React.FC = () => {
 
     const username = '0902415668';
     const handleSendMessage = () => {
-        sendMessage(message, username);
+        sendMessage(message, user?.username);
         setMessage("");
     };
 
@@ -37,7 +39,7 @@ const Room: React.FC = () => {
         }
     }
 
-    console.log('listMessage', listMessage)
+    console.log('user', user)
 
     useEffect(() => {
         if (roomId) {
@@ -50,23 +52,26 @@ const Room: React.FC = () => {
             <div className={classes.background}>
                 <List className={classes.messageList}>
 
-                    {listMessage.map((msg, index) => (
-                        <ListItem key={index} className={classes.otherMessage}>
-                            <div className={classes.itemAvatar}>
-                                <Avatar src={msg.sender.avatar} />
-                            </div>
-                            <ListItemText
-                                primary={msg.sender.name}
-                                secondary={msg.content}
-                                className={classes.listItemText}
-                            />
-                        </ListItem>
-                    ))}
+                    {listMessage.map((msg, index) => {
+                        const isMe = user.id === msg.sender.id;
+                        return (
+                            <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
+                                <div className={classes.itemAvatar}>
+                                    <Avatar src={msg.sender.avatar} />
+                                    <div className={classes.textName}>{isMe ? 'Me' : msg?.sender?.name}</div>
+                                </div>
+                                <ListItemText
+                                    secondary={msg.content}
+                                    className={classes.listItemText}
+                                />
+                            </ListItem>
+                        );
+                    })}
                     {messages.map((msg, index) => (
-                        <ListItem key={index} className={msg.isMe ? classes.myMessage : classes.otherMessage}>
-                            {console.log('7777777', msg)}
+                        <ListItem key={index} className={classes.myMessage}>
                             <div className={classes.itemAvatar}>
-                                <Avatar src={msg.avatar} />
+                                <Avatar src={user?.avatar} />
+                                <div className={classes.textName}>Me</div>
                             </div>
                             <ListItemText
                                 secondary={msg}
@@ -82,7 +87,7 @@ const Room: React.FC = () => {
                 />
                 <Button variant="contained" onClick={handleSendMessage}>Send</Button>
             </div>
-        </PrivateRoute>
+        </PrivateRoute >
     );
 };
 
