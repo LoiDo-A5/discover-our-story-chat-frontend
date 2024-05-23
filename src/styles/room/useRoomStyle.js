@@ -5,7 +5,7 @@ import Colors from "../../configs/Colors";
 const useStyles = makeStyles((theme) => ({
   background: {
     backgroundColor: "#f2f2f2",
-    height: "100vh",
+    height: "85.9vh",
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "20px",
     padding: "8px 12px",
     alignSelf: "flex-end",
-    marginBottom: "10px",
+    marginBottom: "20px",
   },
   otherMessage: {
     background: "#FFFFFF",
     borderRadius: "20px",
     padding: "8px 12px",
     alignSelf: "flex-start",
-    marginBottom: "10px",
+    marginBottom: "20px",
   },
   listItemText: {
     wordWrap: "break-word",

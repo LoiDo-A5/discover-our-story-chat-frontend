@@ -25,7 +25,9 @@ const Room: React.FC = () => {
                 <List className={classes.messageList}>
                     {messages.map((msg, index) => (
                         <ListItem key={index} className={msg.isMe ? classes.myMessage : classes.otherMessage}>
-                            <Avatar src={msg.avatar} />
+                            <div>
+                                <Avatar src={msg.avatar} />
+                            </div>
                             <ListItemText
                                 secondary={msg}
                                 className={classes.listItemText} />
