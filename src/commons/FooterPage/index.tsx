@@ -14,7 +14,7 @@ const FooterPage: React.FC = () => {
               About Us
             </Typography>
             <Typography variant="body2">
-              Your Company is dedicated to providing high-quality products and services to our customers.
+              Discover Our Story: Connecting People, One Room at a Time.
             </Typography>
           </Grid>
 
@@ -23,10 +23,10 @@ const FooterPage: React.FC = () => {
               Contact Us
             </Typography>
             <Typography variant="body2">
-              Email: info@yourcompany.com
+              Email: doloicodechill@gmail.com
             </Typography>
             <Typography variant="body2">
-              Phone: (123) 456-7890
+              Phone: 0901603859
             </Typography>
           </Grid>
 
@@ -43,7 +43,7 @@ const FooterPage: React.FC = () => {
 
         <div className={classes.bottomText}>
           <Typography variant="body2" color="textSecondary" align="center">
-            &copy; 2023 Your Company. All rights reserved.
+            &copy; 2024 ChatRoom. All rights reserved.
           </Typography>
         </div>
       </Container>

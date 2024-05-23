@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     border: `1px solid ${Colors.Grey4}`,
     paddingBottom: 25,
-    maxHeight: "calc(90vh - 150px)", // Chiều cao tối đa của danh sách
-    overflowY: "auto", // Kích hoạt thanh cuộn nếu danh sách quá dài
+    maxHeight: "calc(90vh - 150px)",
+    overflowY: "auto",
   },
   titleRoom: {
     marginTop: 100,

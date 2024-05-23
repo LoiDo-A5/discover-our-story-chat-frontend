@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   listItemText: {
     wordWrap: "break-word",
   },
+  itemAvatar: {
+    marginRight: 16,
+  },
 }));
 
 export default useStyles;

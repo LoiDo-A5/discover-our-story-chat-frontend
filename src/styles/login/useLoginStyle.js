@@ -4,10 +4,11 @@ import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    "&.MuiContainer-root": {
-      height: "90vh",
-      width: "100%",
-    },
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
   },
   wrapLogo: {
     width: "100%",
