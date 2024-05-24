@@ -22,7 +22,7 @@ const Room: React.FC = () => {
         }
     }, [id]);
 
-    const { messages, sendMessage } = useChat(roomId || '');
+    const { messages, sendMessage } = useChat(roomId || 1);
     const [message, setMessage] = useState("");
     const [listMessage, setListMessage] = useState<any[]>([]);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
