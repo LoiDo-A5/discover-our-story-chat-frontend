@@ -12,6 +12,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     width: 50,
     height: 50,
+    cursor:'pointer'
   },
 
   wrapHeader: {
