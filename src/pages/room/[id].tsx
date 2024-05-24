@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PrivateRoute from '@/commons/PrivateRoute';
 import { List, ListItem, ListItemText, Container, TextField, Button, Avatar } from '@mui/material';
 import useChat from '../../hooks/useChat';
@@ -25,10 +25,16 @@ const Room: React.FC = () => {
     const { messages, sendMessage } = useChat(roomId || '');
     const [message, setMessage] = useState("");
     const [listMessage, setListMessage] = useState<any[]>([]);
-
+    const messagesEndRef = useRef<null | HTMLDivElement>(null);
     const handleSendMessage = () => {
         sendMessage(message, user?.username);
         setMessage("");
+    };
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            handleSendMessage();
+        }
     };
 
     const getListMessage = async () => {
@@ -39,21 +45,29 @@ const Room: React.FC = () => {
         }
     }
 
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     useEffect(() => {
         if (roomId) {
             getListMessage()
         }
     }, [roomId]);
 
+    useEffect(() => {
+        scrollToBottom();
+    }, [listMessage, messages]);
+
     return (
         <PrivateRoute>
             <div className={classes.background}>
                 <List className={classes.messageList}>
-
                     {listMessage.map((msg, index) => {
                         const isMe = user.id === msg.sender.id;
                         const formattedTimestamp = moment(msg.timestamp).format('HH:mm DD/MM/YYYY');
-                        console.log('formattedTimestamp', formattedTimestamp)
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
                                 <div className={classes.itemAvatar}>
@@ -69,7 +83,6 @@ const Room: React.FC = () => {
                         );
                     })}
                     {messages.map((msg, index) => {
-                        const moment = require('moment');
                         const formattedTimestamp = moment().format('HH:mm DD/MM/YYYY');
                         return (
                             <ListItem key={index} className={classes.myMessage}>
@@ -85,15 +98,17 @@ const Room: React.FC = () => {
                             </ListItem>
                         )
                     })}
+                    <div ref={messagesEndRef} />
                 </List>
                 <TextField
                     label="Type your message"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <Button variant="contained" onClick={handleSendMessage}>Send</Button>
             </div>
-        </PrivateRoute >
+        </PrivateRoute>
     );
 };
 
