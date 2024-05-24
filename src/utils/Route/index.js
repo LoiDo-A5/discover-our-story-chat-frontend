@@ -1,7 +1,7 @@
 const Routes = {
   Home: "/",
   Login: "/login",
-  MyAccount: "my-account",
+  MyAccount: "/my-account",
   Signup: "/signup",
 };
 

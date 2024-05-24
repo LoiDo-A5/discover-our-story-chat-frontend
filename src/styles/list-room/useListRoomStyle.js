@@ -4,39 +4,18 @@ import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles((theme) => ({
   background: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-  },
-  wrapLogo: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logoChatRoom: {
-    maxWidth: 300,
-    maxHeight: 300,
-  },
-  title: {
-    width: "100%",
-    textAlign: "center",
-    fontSize: 32,
-    color: Colors.Blue19,
-  },
-  signupLink: {
-    marginTop: 16,
-    display: "flex",
-    justifyContent: "flex-end",
-    cursor: "pointer",
+    "&.MuiContainer-root": {
+      height: "90vh",
+      width: "100%",
+    },
   },
   boxList: {
     width: "100%",
     backgroundColor: theme.palette.background.paper,
     border: `1px solid ${Colors.Grey4}`,
     paddingBottom: 25,
+    maxHeight: "calc(90vh - 150px)",
+    overflowY: "auto",
   },
   titleRoom: {
     marginTop: 100,

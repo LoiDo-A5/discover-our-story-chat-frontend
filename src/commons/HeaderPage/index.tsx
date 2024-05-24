@@ -40,6 +40,9 @@ const HeaderPage: React.FC = () => {
     router.push(Routes.MyAccount);
   };
 
+  const goHome = () => {
+    router.push(Routes.Home);
+  }
 
   useEffect(() => {
     setIsClient(true);
@@ -52,7 +55,7 @@ const HeaderPage: React.FC = () => {
       <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Image src={Logo} alt="" className={classes.logoChatRoom} />
+            <Image onClick={goHome} src={Logo} alt="" className={classes.logoChatRoom} />
           </Typography>
 
           <div>
