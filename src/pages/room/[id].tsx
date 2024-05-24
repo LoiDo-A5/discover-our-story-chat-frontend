@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 const Room: React.FC = () => {
     const classes = useStyles();
@@ -51,6 +52,8 @@ const Room: React.FC = () => {
 
                     {listMessage.map((msg, index) => {
                         const isMe = user.id === msg.sender.id;
+                        const formattedTimestamp = moment(msg.timestamp).format('HH:mm DD/MM/YYYY');
+                        console.log('formattedTimestamp', formattedTimestamp)
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
                                 <div className={classes.itemAvatar}>
@@ -58,24 +61,30 @@ const Room: React.FC = () => {
                                     <div className={classes.textName}>{isMe ? 'Me' : msg?.sender?.name}</div>
                                 </div>
                                 <ListItemText
-                                    secondary={msg.content}
+                                    primary={msg.content}
+                                    secondary={formattedTimestamp || ''}
                                     className={classes.listItemText}
                                 />
                             </ListItem>
                         );
                     })}
-                    {messages.map((msg, index) => (
-                        <ListItem key={index} className={classes.myMessage}>
-                            <div className={classes.itemAvatar}>
-                                <Avatar src={user?.avatar} />
-                                <div className={classes.textName}>Me</div>
-                            </div>
-                            <ListItemText
-                                secondary={msg}
-                                className={classes.listItemText}
-                            />
-                        </ListItem>
-                    ))}
+                    {messages.map((msg, index) => {
+                        const moment = require('moment');
+                        const formattedTimestamp = moment().format('HH:mm DD/MM/YYYY');
+                        return (
+                            <ListItem key={index} className={classes.myMessage}>
+                                <div className={classes.itemAvatar}>
+                                    <Avatar src={user?.avatar} />
+                                    <div className={classes.textName}>Me</div>
+                                </div>
+                                <ListItemText
+                                    primary={msg}
+                                    secondary={formattedTimestamp}
+                                    className={classes.listItemText}
+                                />
+                            </ListItem>
+                        )
+                    })}
                 </List>
                 <TextField
                     label="Type your message"
