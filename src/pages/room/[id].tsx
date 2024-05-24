@@ -25,7 +25,6 @@ const Room: React.FC = () => {
     const [message, setMessage] = useState("");
     const [listMessage, setListMessage] = useState<any[]>([]);
 
-    const username = '0902415668';
     const handleSendMessage = () => {
         sendMessage(message, user?.username);
         setMessage("");
@@ -38,8 +37,6 @@ const Room: React.FC = () => {
             setListMessage(data)
         }
     }
-
-    console.log('user', user)
 
     useEffect(() => {
         if (roomId) {
