@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   boxList: {
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: '#ffffff',
     border: `1px solid ${Colors.Grey4}`,
     paddingBottom: 25,
     maxHeight: "calc(90vh - 150px)",

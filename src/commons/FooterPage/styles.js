@@ -1,16 +1,17 @@
+import Colors from '@/configs/Colors';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-    padding: theme.spacing(1, 0),
+    backgroundColor: Colors.Primary,
+    color: '#ffffff',
+    padding: '8px 0',
   },
   title: {
-    marginBottom: theme.spacing(2),
+    marginBottom: '16px',
   },
   bottomText: {
-    marginTop: theme.spacing(2),
+    marginTop: '16px',
   },
 }));
 
