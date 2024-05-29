@@ -8,12 +8,13 @@ import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { RootState } from '@/utils/types';
 
 const Room: React.FC = () => {
     const classes = useStyles();
     const router = useRouter();
     const { id } = router.query;
-    const user = useSelector((state) => state.auth.account.user);
+    const user = useSelector((state: RootState) => state.auth.account.user);
     const [roomId, setRoomId] = useState<string | undefined>();
 
     useEffect(() => {

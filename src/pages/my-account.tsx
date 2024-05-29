@@ -7,6 +7,7 @@ import MyAccountNav from "@/commons/MyAccountNav";
 import useStyles from "../styles/my-account/useMyAccountStyle";
 import PrivateRoute from "@/commons/PrivateRoute";
 import MyAccountForm from "@/commons/MyAccountForm";
+import { RootState } from "@/utils/types";
 
 interface BreadCrumbItem {
     to: string;
@@ -15,11 +16,12 @@ interface BreadCrumbItem {
 }
 
 interface UserProfile {
-    avatar: any;
-    name: string;
-    email: string;
-    phone_number: string;
-}
+    avatar: string;
+    name?: string;
+    email?: string;
+    phone_number?: string;
+    avatarUploadFile?: any
+  };
 
 interface MyAccountFormProps {
     defaultUserData: UserProfile;
@@ -30,7 +32,7 @@ interface MyAccountFormProps {
 
 const MyAccount: React.FC<MyAccountFormProps> = () => {
     const classes = useStyles();
-    const user = useSelector((state) => state.auth.account.user);
+    const user = useSelector((state: RootState) => state.auth.account.user);
 
     const defaultUserData: UserProfile = {
         avatar: user?.avatar,

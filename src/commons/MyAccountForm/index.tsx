@@ -10,6 +10,7 @@ import { updateAccount } from '@/redux/reducer/authSlice';
 import { ToastTopHelper } from '@/utils/utils';
 
 interface UserProfile {
+  avatar: string;
   name?: string;
   email?: string;
   phone_number?: string;

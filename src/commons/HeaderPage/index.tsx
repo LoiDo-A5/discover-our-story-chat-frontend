@@ -10,12 +10,13 @@ import { logout } from '../../redux/reducer/authSlice';
 import { useRouter } from 'next/router';
 import Routes from '../../utils/Route';
 import useStyles from './styles';
+import { RootState } from '@/utils/types';
 
 const HeaderPage: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
-  const user = useSelector((state) => state.auth.account.user);
+  const user = useSelector((state: RootState) => state.auth.account.user);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isClient, setIsClient] = useState(false);
