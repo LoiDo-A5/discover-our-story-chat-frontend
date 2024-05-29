@@ -9,6 +9,7 @@ import { login, loginFailure } from "../redux/reducer/authSlice";
 import Routes from '../utils/Route';
 import { useRouter } from "next/router";
 import useStyles from "../styles/login/useLoginStyle";
+import { RootState } from "@/utils/types";
 
 interface LoginProps { }
 
@@ -17,7 +18,7 @@ const LoginForm: React.FC<LoginProps> = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
