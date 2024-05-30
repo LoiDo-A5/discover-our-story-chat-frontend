@@ -1,4 +1,4 @@
-const API_ROOT = process.env.NEXT_PUBLIC_API_URL;
+const API_ROOT = 'http://3.80.81.109:8000/api';
 
 const API = {
   AUTH: {
