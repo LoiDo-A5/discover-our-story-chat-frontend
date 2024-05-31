@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PrivateRoute from '@/commons/PrivateRoute';
-import { List, ListItem, ListItemText, Container, TextField, Button, Avatar } from '@mui/material';
-import useChat from '../../hooks/useChat';
+import { List, ListItem, ListItemText, TextField, Button, Avatar } from '@mui/material';
 import useStyles from '@/styles/room/useRoomStyle';
 import { useRouter } from 'next/router';
 import { axiosGet } from '@/utils/apis/axios';
@@ -9,6 +8,7 @@ import API from '@/configs/API';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { RootState } from '@/utils/types';
+import useChat from '@/hooks/useChat';
 
 const Room: React.FC = () => {
     const classes = useStyles();
@@ -23,7 +23,7 @@ const Room: React.FC = () => {
         }
     }, [id]);
 
-    const { messages, sendMessage } = useChat(roomId || 1);
+    const { messages, sendMessage } = useChat(roomId || "");
     const [message, setMessage] = useState("");
     const [listMessage, setListMessage] = useState<any[]>([]);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -85,14 +85,15 @@ const Room: React.FC = () => {
                     })}
                     {messages.map((msg, index) => {
                         const formattedTimestamp = moment().format('HH:mm DD/MM/YYYY');
+                        const isMe = user.id === msg.user.id;
                         return (
-                            <ListItem key={index} className={classes.myMessage}>
-                                <div className={classes.itemAvatar}>
-                                    <Avatar src={user?.avatar} />
-                                    <div className={classes.textName}>Me</div>
-                                </div>
+                            <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
+                            <div className={classes.itemAvatar}>
+                                <Avatar src={msg.user.avatar} />
+                                <div className={classes.textName}>{isMe ? 'Me' : msg?.user?.name}</div>
+                            </div>
                                 <ListItemText
-                                    primary={msg}
+                                    primary={msg?.message}
                                     secondary={formattedTimestamp}
                                     className={classes.listItemText}
                                 />

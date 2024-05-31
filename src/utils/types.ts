@@ -22,3 +22,8 @@ export interface User {
   export interface RootState {
     auth: AuthState;
   }
+
+  export interface Message {
+    user: User;
+    message: string;
+  }
