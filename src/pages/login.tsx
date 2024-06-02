@@ -1,6 +1,5 @@
 import React, { useState, FormEvent, useEffect } from "react";
-import { Button, Container, TextField, Link } from "@mui/material";
-import Logo from "../images/logo.png";
+import { Box, Button, Container, TextField, Typography, Link, Paper } from "@mui/material";
 import Image from "next/image";
 import { axiosPost } from "../utils/apis/axios";
 import API from "../configs/API";
@@ -10,10 +9,9 @@ import Routes from '../utils/Route';
 import { useRouter } from "next/router";
 import useStyles from "../styles/login/useLoginStyle";
 import { RootState } from "@/utils/types";
+import Logo from "../images/logo.png";
 
-interface LoginProps { }
-
-const LoginForm: React.FC<LoginProps> = () => {
+const LoginForm: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -48,38 +46,57 @@ const LoginForm: React.FC<LoginProps> = () => {
   }, [isLoggedIn, router]);
 
   return (
-    <Container className={classes.background}>
-      <form onSubmit={handleSubmit}>
-        <div className={classes.wrapLogo}>
-          <Image src={Logo} alt="" className={classes.logoChatRoom} />
+    <Container component="main" maxWidth={false} className={classes.root}>
+      <Paper elevation={3} className={classes.paper}>
+        <div className={classes.logoContainer}>
+          <Image src={Logo} alt="Logo" className={classes.logo} />
         </div>
-        <div className={classes.title}>CHAT ROOM</div>
-        <TextField
-          label="Username"
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <TextField
-          label="Password"
-          fullWidth
-          variant="outlined"
-          margin="normal"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
-        </Button>
-        <div onClick={handleNavigateSignUp} className={classes.signupLink}>
-          <Link variant="body2">
-            Sign up for me
-          </Link>
-        </div>
-      </form>
+        <Typography component="h1" variant="h5" className={classes.title}>
+          Chat Room
+        </Typography>
+        <form onSubmit={handleSubmit} className={classes.form}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Login
+          </Button>
+          <Box mt={2} className={classes.signupLink}>
+            <Link variant="body2" onClick={handleNavigateSignUp}>
+              Do not have an account? Sign Up
+            </Link>
+          </Box>
+        </form>
+      </Paper>
     </Container>
   );
 };
