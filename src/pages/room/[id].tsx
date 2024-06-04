@@ -38,6 +38,7 @@ const Room: React.FC = () => {
         }
     };
 
+
     const getListMessage = async () => {
         if (!roomId) return;
         const { success, data } = await axiosGet(`${API.MESSAGE.LIST_MESSAGES}?room_id=${roomId}`);
@@ -88,10 +89,10 @@ const Room: React.FC = () => {
                         const isMe = user.id === msg.user.id;
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
-                            <div className={classes.itemAvatar}>
-                                <Avatar src={msg.user.avatar} />
-                                <div className={classes.textName}>{isMe ? 'Me' : msg?.user?.name}</div>
-                            </div>
+                                <div className={classes.itemAvatar}>
+                                    <Avatar src={msg.user.avatar} />
+                                    <div className={classes.textName}>{isMe ? 'Me' : msg?.user?.name}</div>
+                                </div>
                                 <ListItemText
                                     primary={msg?.message}
                                     secondary={formattedTimestamp}
