@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: theme.spacing(1),
     color: Colors.Blue19,
+    textAlign: "center",
   },
   form: {
     width: "100%",

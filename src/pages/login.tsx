@@ -51,8 +51,8 @@ const LoginForm: React.FC = () => {
         <div className={classes.logoContainer}>
           <Image src={Logo} alt="Logo" className={classes.logo} />
         </div>
-        <Typography component="h1" variant="h5" className={classes.title}>
-          Chat Room
+        <Typography component="h1" variant="h5" className={classes.title} >
+          DISCOVER OUR STORY
         </Typography>
         <form onSubmit={handleSubmit} className={classes.form}>
           <TextField
