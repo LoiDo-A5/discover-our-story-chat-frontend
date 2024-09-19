@@ -4,11 +4,16 @@ import { Message } from '@/utils/types';
 function useChat(roomId: string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
-
+  const apiUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) {
+    throw new Error("API URL is not defined in the environment variables.");
+  }
+  const websocketUrl = apiUrl.replace("/api", "").replace(/^http/, "ws") + `/ws/chat/${roomId}/`;
+  
+  
 
   useEffect(() => {
-    // const websocket = new WebSocket(`ws://127.0.0.1:8000/ws/chat/${roomId}/`);
-    const websocket = new WebSocket(`ws://18.208.158.34:8000/ws/chat/${roomId}/`);
+    const websocket = new WebSocket(websocketUrl);
     setWs(websocket);
 
     websocket.onopen = (event) => {
