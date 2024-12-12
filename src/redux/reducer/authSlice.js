@@ -1,20 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-import { initData, removeAxiosDefaultAuthToken } from '../../utils/utils';
+import { initData, removeAxiosDefaultAuthToken } from "../../utils/utils";
 
 const initialState = {
-  errorMsg: '',
+  errorMsg: "",
 
   isLoggedIn: false,
   account: {
-    token: '',
+    token: "",
     user: {},
     customer: {},
   },
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     login: (state, action) => {

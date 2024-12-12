@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import useStyles from "../styles/login/useLoginStyle";
 import { RootState } from "@/utils/types";
 import Logo from "../images/logo.png";
+import { reactLocalStorage } from "reactjs-localstorage";
 
 const LoginForm: React.FC = () => {
   const classes = useStyles();
@@ -40,7 +41,8 @@ const LoginForm: React.FC = () => {
   }
 
   useEffect(() => {
-    if (isLoggedIn) {
+    const accessToken = reactLocalStorage.get('accessToken');
+    if (accessToken && isLoggedIn) {
       router.push(Routes.Home);
     }
   }, [isLoggedIn, router]);

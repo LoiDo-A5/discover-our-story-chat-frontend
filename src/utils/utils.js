@@ -1,13 +1,13 @@
-import { createTheme } from '@mui/material/styles';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { reactLocalStorage } from 'reactjs-localstorage';
+import { createTheme } from "@mui/material/styles";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { reactLocalStorage } from "reactjs-localstorage";
 
-import Colors from '../configs/Colors';
+import Colors from "../configs/Colors";
 
 const notify = (type, msg, extra = {}) => {
   toast[type](msg, {
-    position: 'top-right',
+    position: "top-right",
     autoClose: 1500,
     hideProgressBar: false,
     closeOnClick: true,
@@ -22,10 +22,10 @@ const notify = (type, msg, extra = {}) => {
 
 export const ToastTopHelper = {
   success: (msg, extra) => {
-    notify('success', msg, extra);
+    notify("success", msg, extra);
   },
   error: (msg, extra) => {
-    notify('error', msg, extra);
+    notify("error", msg, extra);
   },
 };
 
@@ -40,32 +40,38 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          textTransform: 'capitalize',
+          textTransform: "capitalize",
         },
       },
     },
   },
 });
 
-export const setAxiosDefaultAuthToken = (token) => {
-  axios.defaults.headers.common.Accept = 'application/json';
-  axios.defaults.headers.common.Authorization = `Token ${token}`;
-  reactLocalStorage.set('token', token);
+export const setAxiosDefaultAuthToken = (access, refresh) => {
+  axios.defaults.headers.common.Accept = "application/json";
+  axios.defaults.headers.common.Authorization = `Bearer ${access}`;
+  reactLocalStorage.set("accessToken", access);
+  reactLocalStorage.set("refreshToken", refresh);
 };
 
 export const removeAxiosDefaultAuthToken = () => {
   delete axios.defaults.headers.common.Accept;
   delete axios.defaults.headers.common.Authorization;
-  reactLocalStorage.remove('token');
+  reactLocalStorage.remove("accessToken");
+  reactLocalStorage.remove("refreshToken");
 };
 
-export const initData = ({ token }) => {
-  setAxiosDefaultAuthToken(token);
+export const initData = ({ access, refresh }) => {
+  if (access && refresh) {
+    setAxiosDefaultAuthToken(access, refresh);
+  } else {
+    console.error("Missing access or refresh token");
+  }
 };
 
 export const formatCurrency = (price) => {
-  const formatter = new Intl.NumberFormat('en-US', {
-    currency: 'VND',
+  const formatter = new Intl.NumberFormat("en-US", {
+    currency: "VND",
   });
 
   return formatter.format(price);
