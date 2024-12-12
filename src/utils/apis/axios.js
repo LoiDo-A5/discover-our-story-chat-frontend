@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { ToastTopHelper } from "../utils";
 import { reactLocalStorage } from "reactjs-localstorage";
+import API from "@/configs/API";
 
 let isShowingToastify = false;
 let messageTemp;
@@ -69,17 +70,25 @@ const parseErrorResponse = (error) => {
   };
 };
 
-async function refreshAccessToken() {
-  const refreshToken = reactLocalStorage.getItem("refreshToken");
-
+async function refreshToken() {
+  const refreshToken = reactLocalStorage.get("refreshToken");
   if (!refreshToken) {
     throw new Error("No refresh token available");
   }
 
-  const response = await axios.post("/api/token/refresh/", {
-    refresh: refreshToken,
-  });
-  return response.data.access;
+  const response = await axios.post(
+    API.AUTH.TOKEN_REFRESH,
+    {
+      refresh: refreshToken,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return response.data;
 }
 
 async function axiosCall(method, ...args) {
@@ -93,12 +102,12 @@ async function axiosCall(method, ...args) {
   try {
     response = await axios[method](...args);
   } catch (error) {
-    console.log("11111111111111111111", error);
     if (error.response && error.response.status === 401) {
       try {
-        const newAccessToken = await refreshAccessToken();
-        reactLocalStorage.set("accessToken", newAccessToken);
-        axios.defaults.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        const { access, refresh } = await refreshToken();
+        reactLocalStorage.set("accessToken", access);
+        reactLocalStorage.set("refreshToken", refresh);
+        axios.defaults.headers["Authorization"] = `Bearer ${access}`;
         response = await axios[method](...args);
       } catch (refreshError) {
         reactLocalStorage.remove("accessToken");
