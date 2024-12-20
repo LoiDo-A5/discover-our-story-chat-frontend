@@ -110,11 +110,9 @@ async function axiosCall(method, ...args) {
         axios.defaults.headers["Authorization"] = `Bearer ${access}`;
         response = await axios[method](...args);
       } catch (refreshError) {
-        reactLocalStorage.remove("accessToken");
-        reactLocalStorage.remove("refreshToken");
+        reactLocalStorage.clear()
         ToastTopHelper.error("Your session has expired. Please log in again.");
         window.location.href = "/login";
-        return parseErrorResponse(refreshError);
       }
     } else {
       if (!handleError) {

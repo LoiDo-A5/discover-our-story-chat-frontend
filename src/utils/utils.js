@@ -57,8 +57,7 @@ export const setAxiosDefaultAuthToken = (access, refresh) => {
 export const removeAxiosDefaultAuthToken = () => {
   delete axios.defaults.headers.common.Accept;
   delete axios.defaults.headers.common.Authorization;
-  reactLocalStorage.remove("accessToken");
-  reactLocalStorage.remove("refreshToken");
+  reactLocalStorage.clear()
 };
 
 export const initData = ({ access, refresh }) => {
