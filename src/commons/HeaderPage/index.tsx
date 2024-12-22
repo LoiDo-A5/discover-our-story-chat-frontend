@@ -55,9 +55,26 @@ const HeaderPage: React.FC = () => {
     <div className={classes.containerHeader}>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Image onClick={goHome} src={Logo} alt="" className={classes.logoChatRoom} />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            <Image
+              onClick={goHome}
+              src={Logo}
+              alt=""
+              className={classes.logoChatRoom}
+              style={{ marginRight: '20px' }}
+            />
+            <div className={classes.textFriendShip}>Friend Ship</div>
           </Typography>
+
+
 
           <div>
             <Box>

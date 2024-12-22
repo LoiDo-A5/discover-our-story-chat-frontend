@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     width: 50,
     height: 50,
-    cursor:'pointer'
+    cursor: "pointer",
   },
 
   wrapHeader: {
@@ -143,6 +143,9 @@ const useStyles = makeStyles(() => ({
       width: 32,
       height: 32,
     },
+  },
+  textFriendShip: {
+    cursor: "pointer",
   },
 }));
 
