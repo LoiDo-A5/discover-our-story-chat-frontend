@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
   },
   container: {
-    maxWidth: "600px",
+    maxWidth: "1000px",
     width: "100%",
     backgroundColor: "#fff",
     borderRadius: "10px",
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   searchResults: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-    gap: "20px",
+    gap: "30px",
   },
   userCard: {
     display: "flex",
@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
     textAlign: "center",
+    justifyContent: "space-between",
   },
   avatar: {
     width: "50px",
@@ -55,11 +56,18 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
   },
   addButton: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#007bff",
+    height: 50,
     color: "#fff",
     "&:hover": {
       backgroundColor: "#0056b3",
     },
+  },
+  buttonSearch: {
+    marginLeft: 20,
   },
 }));
 

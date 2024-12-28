@@ -45,6 +45,10 @@ const HeaderPage: React.FC = () => {
     router.push(Routes.Home);
   }
 
+  const goFriendShip = () => {
+    router.push(Routes.Friendship(user?.id))
+  }
+
   useEffect(() => {
     setIsClient(true);
   }, []);
@@ -71,7 +75,7 @@ const HeaderPage: React.FC = () => {
               className={classes.logoChatRoom}
               style={{ marginRight: '20px' }}
             />
-            <div className={classes.textFriendShip}>Friend Ship</div>
+            <div onClick={goFriendShip} className={classes.textFriendShip}>Friend Ship</div>
           </Typography>
 
 
