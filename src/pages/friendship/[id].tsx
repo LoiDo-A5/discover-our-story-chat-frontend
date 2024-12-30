@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField, Typography, Container, Avatar } from "@mui/material";
+import { Button, TextField, Typography, Container, Avatar, Box } from "@mui/material";
 import useStyles from '@/styles/friendship/useFriendshipStyle';
 import PrivateRoute from "@/commons/PrivateRoute";
 import { axiosGet, axiosPost } from "@/utils/apis/axios";
 import API from "@/configs/API";
 import { User } from "@/utils/types";
 import { ToastTopHelper } from "@/utils/utils";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PhoneIcon from '@mui/icons-material/Phone';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import ListUser from "./ListUser";
 
 const Friendship: React.FC = () => {
     const classes = useStyles();
     const [users, setUsers] = useState<User[]>([]);
-    const [friends, setFriends] = useState<string[]>([]); // Danh sách bạn bè
+    const [friends, setFriends] = useState<string[]>([]);
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+        setValue(newValue);
+    };
 
     const addFriend = async (id: string) => {
         const { success, data } = await axiosPost(API.FRIENDSHIP.REQUEST_FRIEND, {
@@ -43,36 +54,24 @@ const Friendship: React.FC = () => {
 
     return (
         <PrivateRoute>
-            <div className={classes.background}>
-                <Container className={classes.container}>
-                    <Typography variant="h6" gutterBottom>
-                        Search Users
-                    </Typography>
-                    <div className={classes.searchBar}>
-                        <TextField placeholder="Search by name or email" fullWidth />
-                        <Button className={classes.buttonSearch} variant="contained">Search</Button>
-                    </div>
+            <div className={classes.background1}>
+                <Box className={classes.tabsContainer}>
+                    <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
+                        <Tab icon={<PhoneIcon />} aria-label="phone" />
+                        <Tab icon={<FavoriteIcon />} aria-label="favorite" />
+                        <Tab icon={<PersonPinIcon />} aria-label="person" />
+                    </Tabs>
+                </Box>
 
-                    <div className={classes.searchResults}>
-                        {users.map((user) => (
-                            <div key={user.id} className={classes.userCard}>
-                                <Avatar
-                                    className={classes.avatar}
-                                    src={user?.avatar}
-                                />
-                                <div className={classes.userName}>{user.name}</div>
-                                <Button
-                                    variant="contained"
-                                    className={classes.addButton}
-                                    onClick={() => addFriend(user?.id)}
-                                    disabled={friends.includes(user.id)}
-                                >
-                                    {friends.includes(user.id) ? "Bạn bè" : "Add Friend"}
-                                </Button>
-                            </div>
-                        ))}
-                    </div>
-                </Container>
+                <Box sx={{ p: 3 }}>
+                    {value === 0 && <ListUser />}
+                    {value === 1 && (
+                        <Typography variant="h6">Favorite Content</Typography>
+                    )}
+                    {value === 2 && (
+                        <Typography variant="h6">Person Content</Typography>
+                    )}
+                </Box>
             </div>
         </PrivateRoute>
     );

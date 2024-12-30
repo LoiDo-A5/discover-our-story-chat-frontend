@@ -3,12 +3,18 @@ import { makeStyles } from "@mui/styles";
 import Colors from "../../configs/Colors";
 
 const useStyles = makeStyles((theme) => ({
+  background1: {
+    minHeight: "100vh",
+    padding: "20px",
+    marginTop: 100,
+    justifyContent: "center",
+  },
   background: {
     display: "flex",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "flex-start",
     alignItems: "center",
     minHeight: "100vh",
-    backgroundColor: "#f4f8fb",
     padding: "20px",
   },
   container: {
@@ -18,6 +24,17 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
     padding: "20px",
+  },
+  tabsContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "sticky",
+    top: 0,
+    zIndex: 10,
+    padding: "10px 0",
+    marginBottom: "20px",
+    width: "100%",
   },
   searchBar: {
     display: "flex",
