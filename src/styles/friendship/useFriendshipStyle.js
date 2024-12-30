@@ -1,7 +1,5 @@
 import { makeStyles } from "@mui/styles";
 
-import Colors from "../../configs/Colors";
-
 const useStyles = makeStyles((theme) => ({
   background1: {
     minHeight: "100vh",

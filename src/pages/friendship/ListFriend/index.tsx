@@ -1,29 +1,29 @@
 import React from "react";
 import { Button, TextField, Typography, Container, Avatar } from "@mui/material";
 import useStyles from '@/styles/friendship/useFriendshipStyle';
-import { User } from "@/utils/types";
-interface ListUserProps {
-    users: User[];
-    friends: User[];
-    addFriend: (id: string) => void;
+
+interface Friend {
+    id: string;
+    name: string;
+    avatar: string;
 }
 
-const ListUser: React.FC<ListUserProps> = ({ users, friends, addFriend }) => {
+interface ListFriendProps {
+    friends: Friend[];
+}
+
+const ListFriend: React.FC<ListFriendProps> = ({ friends }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.background}>
             <Container className={classes.container}>
                 <Typography variant="h6" gutterBottom>
-                    Search Users
+                    List Friend
                 </Typography>
-                <div className={classes.searchBar}>
-                    <TextField placeholder="Search by name or email" fullWidth />
-                    <Button className={classes.buttonSearch} variant="contained">Search</Button>
-                </div>
 
                 <div className={classes.searchResults}>
-                    {users.map((user) => (
+                    {friends.map((user) => (
                         <div key={user.id} className={classes.userCard}>
                             <Avatar
                                 className={classes.avatar}
@@ -33,10 +33,8 @@ const ListUser: React.FC<ListUserProps> = ({ users, friends, addFriend }) => {
                             <Button
                                 variant="contained"
                                 className={classes.addButton}
-                                onClick={() => addFriend(user?.id)}
-                                disabled={friends.includes(user.id)}
                             >
-                                {friends.includes(user.id) ? "Bạn bè" : "Add Friend"}
+                                Friend
                             </Button>
                         </div>
                     ))}
@@ -46,4 +44,4 @@ const ListUser: React.FC<ListUserProps> = ({ users, friends, addFriend }) => {
     );
 };
 
-export default ListUser;
+export default ListFriend;

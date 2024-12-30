@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, TextField, Typography, Container, Avatar, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import useStyles from '@/styles/friendship/useFriendshipStyle';
 import PrivateRoute from "@/commons/PrivateRoute";
 import { axiosGet, axiosPost } from "@/utils/apis/axios";
@@ -10,13 +10,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PhoneIcon from '@mui/icons-material/Phone';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import PersonPinIcon from '@mui/icons-material/PersonPin';
 import ListUser from "./ListUser";
+import ListFriend from "./ListFriend";
+
 
 const Friendship: React.FC = () => {
     const classes = useStyles();
     const [users, setUsers] = useState<User[]>([]);
-    const [friends, setFriends] = useState<string[]>([]);
+    const [friends, setFriends] = useState<User[]>([]);
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -57,20 +58,14 @@ const Friendship: React.FC = () => {
             <div className={classes.background1}>
                 <Box className={classes.tabsContainer}>
                     <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
-                        <Tab icon={<PhoneIcon />} aria-label="phone" />
+                        <Tab icon={<PhoneIcon />} aria-label="person" />
                         <Tab icon={<FavoriteIcon />} aria-label="favorite" />
-                        <Tab icon={<PersonPinIcon />} aria-label="person" />
                     </Tabs>
                 </Box>
 
                 <Box sx={{ p: 3 }}>
-                    {value === 0 && <ListUser />}
-                    {value === 1 && (
-                        <Typography variant="h6">Favorite Content</Typography>
-                    )}
-                    {value === 2 && (
-                        <Typography variant="h6">Person Content</Typography>
-                    )}
+                    {value === 0 && <ListUser users={users} friends={friends} addFriend={addFriend} />}
+                    {value === 1 && <ListFriend friends={friends} />}
                 </Box>
             </div>
         </PrivateRoute>
