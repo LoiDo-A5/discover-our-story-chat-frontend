@@ -11,6 +11,8 @@ interface ListUserProps {
 const ListUser: React.FC<ListUserProps> = ({ users, friends, addFriend }) => {
     const classes = useStyles();
 
+    const friendIds = friends.map((friend) => friend.id);
+
     return (
         <div className={classes.background}>
             <Container className={classes.container}>
@@ -34,9 +36,9 @@ const ListUser: React.FC<ListUserProps> = ({ users, friends, addFriend }) => {
                                 variant="contained"
                                 className={classes.addButton}
                                 onClick={() => addFriend(user?.id)}
-                                disabled={friends.includes(user.id)}
+                                disabled={friendIds.includes(user.id)}
                             >
-                                {friends.includes(user.id) ? "Bạn bè" : "Add Friend"}
+                                {friendIds.includes(user.id) ? "Friend" : "Add Friend"}
                             </Button>
                         </div>
                     ))}
