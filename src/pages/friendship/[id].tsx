@@ -2,24 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Button, TextField, Typography, Container, Avatar } from "@mui/material";
 import useStyles from '@/styles/friendship/useFriendshipStyle';
 import PrivateRoute from "@/commons/PrivateRoute";
-import { axiosGet } from "@/utils/apis/axios";
+import { axiosGet, axiosPost } from "@/utils/apis/axios";
 import API from "@/configs/API";
 import { User } from "@/utils/types";
+import { ToastTopHelper } from "@/utils/utils";
 
 const Friendship: React.FC = () => {
     const classes = useStyles();
     const [users, setUsers] = useState<User[]>([]);
+    const [friends, setFriends] = useState<string[]>([]); // Danh sách bạn bè
+
+    const addFriend = async (id: string) => {
+        const { success, data } = await axiosPost(API.FRIENDSHIP.REQUEST_FRIEND, {
+            to_user_id: id,
+        });
+
+        if (success) {
+            ToastTopHelper.success("Request friend success");
+        }
+    };
 
     const getListUser = async () => {
         const { success, data } = await axiosGet(API.AUTH.LIST_USER);
         if (success) {
-            setUsers(data)
+            setUsers(data);
         }
-    }
+    };
 
+    const getFriends = async () => {
+        const { success, data } = await axiosGet(API.FRIENDSHIP.FRIENDS_LIST);
+        if (success) {
+            setFriends(data.map((friend: User) => friend.id));
+        }
+    };
 
     useEffect(() => {
-        getListUser()
+        getListUser();
+        getFriends();
     }, []);
 
     return (
@@ -45,8 +64,10 @@ const Friendship: React.FC = () => {
                                 <Button
                                     variant="contained"
                                     className={classes.addButton}
+                                    onClick={() => addFriend(user?.id)}
+                                    disabled={friends.includes(user.id)}
                                 >
-                                    Add Friend
+                                    {friends.includes(user.id) ? "Bạn bè" : "Add Friend"}
                                 </Button>
                             </div>
                         ))}

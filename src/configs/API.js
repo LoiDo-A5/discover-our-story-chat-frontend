@@ -14,6 +14,10 @@ const API = {
   MESSAGE: {
     LIST_MESSAGES: `${API_ROOT}/accounts/messages/`,
   },
+  FRIENDSHIP: {
+    REQUEST_FRIEND: `${API_ROOT}/accounts/friendship/`,
+    FRIENDS_LIST: `${API_ROOT}/accounts/friendship/friends_list/`,
+  },
 };
 
 export default API;
