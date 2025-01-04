@@ -13,6 +13,7 @@ const API = {
   },
   MESSAGE: {
     LIST_MESSAGES: `${API_ROOT}/accounts/messages/`,
+    LIST_DIRECT_MESSAGES: `${API_ROOT}/accounts/direct_messages/`,
   },
   FRIENDSHIP: {
     REQUEST_FRIEND: `${API_ROOT}/accounts/friendship/`,

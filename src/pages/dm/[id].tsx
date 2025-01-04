@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/types';
 import useChat from '@/hooks/useChat';
 import PrivateRoute from '@/commons/PrivateRoute';
+import { axiosGet } from '@/utils/apis/axios';
+import API from '@/configs/API';
 import moment from 'moment';
 
 const DirectMessage: React.FC = () => {
@@ -14,7 +16,9 @@ const DirectMessage: React.FC = () => {
     const { id } = router.query;
     const user = useSelector((state: RootState) => state.auth.account.user);
     const [roomId, setRoomId] = useState<string | undefined>();
+    const [listMessages, setListMessages] = useState<any[]>([]);
 
+    // Set roomId
     useEffect(() => {
         if (typeof id === 'string' && user?.id) {
             const friendId = parseInt(id);
@@ -22,7 +26,20 @@ const DirectMessage: React.FC = () => {
         }
     }, [id, user]);
 
+    // Call the API to get DirectMessages
+    const getListMessages = async () => {
+        if (!user?.id || !id) return;
+        const { success, data } = await axiosGet(`${API.MESSAGE.LIST_DIRECT_MESSAGES}?sender_id=${user.id}&receiver_id=${id}`);
+        if (success) {
+            setListMessages(data);
+        }
+    };
 
+    useEffect(() => {
+        getListMessages();
+    }, [roomId]);
+
+    // Chat logic
     const { messages, sendMessage } = useChat("dm", roomId || "");
     const [message, setMessage] = useState("");
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -48,15 +65,30 @@ const DirectMessage: React.FC = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, [messages, listMessages]);
 
     return (
         <PrivateRoute>
             <div className={classes.background}>
                 <List className={classes.messageList}>
+                    {listMessages.map((msg, index) => {
+                        const isMe = user.id === msg.sender.id;
+                        console.log('111111111111isMe', msg)
+                        const formattedTimestamp = moment(msg.timestamp).format('HH:mm DD/MM/YYYY');
+                        return (
+                            <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
+                                <div className={classes.itemAvatar}>
+                                    <Avatar src={msg.sender.avatar} />
+                                    <div className={classes.textName}>{isMe ? 'Me' : msg?.sender?.name}</div>
+                                </div>
+                                <ListItemText primary={msg.content} secondary={formattedTimestamp} />
+                            </ListItem>
+                        );
+                    })}
+
                     {messages.map((msg, index) => {
-                        const isMe = user.id === msg.user.id;
                         const formattedTimestamp = moment().format('HH:mm DD/MM/YYYY');
+                        const isMe = user.id === msg.user.id;
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
                                 <div className={classes.itemAvatar}>
