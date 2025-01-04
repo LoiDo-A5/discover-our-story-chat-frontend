@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/types';
 import useChat from '@/hooks/useChat';
 import PrivateRoute from '@/commons/PrivateRoute';
+import moment from 'moment';
 
 const DirectMessage: React.FC = () => {
     const classes = useStyles();
@@ -55,13 +56,14 @@ const DirectMessage: React.FC = () => {
                 <List className={classes.messageList}>
                     {messages.map((msg, index) => {
                         const isMe = user.id === msg.user.id;
+                        const formattedTimestamp = moment().format('HH:mm DD/MM/YYYY');
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>
                                 <div className={classes.itemAvatar}>
                                     <Avatar src={msg.user.avatar} />
                                     <div className={classes.textName}>{isMe ? 'Me' : msg?.user?.name}</div>
                                 </div>
-                                <ListItemText primary={msg.message} secondary={msg.timestamp} />
+                                <ListItemText primary={msg.message} secondary={formattedTimestamp} />
                             </ListItem>
                         );
                     })}
