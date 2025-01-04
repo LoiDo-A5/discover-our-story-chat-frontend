@@ -10,9 +10,7 @@ function useChat(chatType: string, roomId: string) {
     throw new Error("API URL is not defined in the environment variables.");
   }
 
-  const websocketUrl = apiUrl
-    .replace("/api", "")
-    .replace(/^http/, "ws") + `/ws/chat/${chatType}/${roomId}/`;
+  const websocketUrl = `${apiUrl.replace("/api", "").replace(/^http/, "ws")}/ws/chat/${chatType}/${roomId}/`;
 
   useEffect(() => {
     const websocket = new WebSocket(websocketUrl);

@@ -12,24 +12,27 @@ const DirectMessage: React.FC = () => {
     const router = useRouter();
     const { id } = router.query;
     const user = useSelector((state: RootState) => state.auth.account.user);
-    const [friendId, setFriendId] = useState<string | undefined>();
+    const [roomId, setRoomId] = useState<string | undefined>();
 
     useEffect(() => {
-        if (typeof id === 'string') {
-            setFriendId(id);
+        if (typeof id === 'string' && user?.id) {
+            const friendId = parseInt(id);
+            setRoomId(`${Math.min(user.id, friendId)}_${Math.max(user.id, friendId)}`);
         }
-    }, [id]);
+    }, [id, user]);
 
-    const { messages, sendMessage } = useChat("dm", friendId || "");
+
+    const { messages, sendMessage } = useChat("dm", roomId || "");
     const [message, setMessage] = useState("");
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
     const handleSendMessage = () => {
-        if (friendId) {
-            sendMessage(message, user?.id || "", friendId);
+        if (roomId) {
+            sendMessage(message, user?.id || "", id || "");
             setMessage("");
         }
     };
+
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             handleSendMessage();
