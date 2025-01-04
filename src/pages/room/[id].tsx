@@ -23,12 +23,12 @@ const Room: React.FC = () => {
         }
     }, [id]);
 
-    const { messages, sendMessage } = useChat(roomId || "");
+    const { messages, sendMessage } = useChat("room", roomId || "");
     const [message, setMessage] = useState("");
     const [listMessage, setListMessage] = useState<any[]>([]);
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
     const handleSendMessage = () => {
-        sendMessage(message, user?.username);
+        sendMessage(message, user?.id);
         setMessage("");
     };
 

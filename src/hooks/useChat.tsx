@@ -1,27 +1,28 @@
 import { useEffect, useState } from "react";
-import { Message } from '@/utils/types';
+import { Message } from "@/utils/types";
 
-function useChat(roomId: string) {
+function useChat(chatType: string, roomId: string) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const apiUrl: string | undefined = process.env.NEXT_PUBLIC_API_URL;
+
   if (!apiUrl) {
     throw new Error("API URL is not defined in the environment variables.");
   }
-  const websocketUrl = apiUrl.replace("/api", "").replace(/^http/, "ws") + `/ws/chat/${roomId}/`;
-  
-  
+
+  const websocketUrl = apiUrl
+    .replace("/api", "")
+    .replace(/^http/, "ws") + `/ws/chat/${chatType}/${roomId}/`;
 
   useEffect(() => {
     const websocket = new WebSocket(websocketUrl);
     setWs(websocket);
 
-    websocket.onopen = (event) => {
+    websocket.onopen = () => {
       console.log("WebSocket connection opened");
     };
 
     websocket.onmessage = (event) => {
-      console.log("Received message:");
       const data = JSON.parse(event.data);
       setMessages((prev) => [...prev, data]);
     };
@@ -37,12 +38,14 @@ function useChat(roomId: string) {
     return () => {
       websocket.close();
     };
-  }, [roomId]);
+  }, [chatType, roomId]);
 
-  const sendMessage = (message: string, username: string) => {
+  const sendMessage = (message: string, sender_id: string, receiver_id?: string) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      const messageData = JSON.stringify({ message, username });
-      console.log("Sending message:", messageData);
+      const messageData = receiver_id
+        ? JSON.stringify({ message, sender_id, receiver_id })
+        : JSON.stringify({ message, sender_id });
+
       ws.send(messageData);
     }
   };

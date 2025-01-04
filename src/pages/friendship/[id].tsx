@@ -44,7 +44,7 @@ const Friendship: React.FC = () => {
     const getFriends = async () => {
         const { success, data } = await axiosGet(API.FRIENDSHIP.FRIENDS_LIST);
         if (success) {
-            setFriends(data.map((friend: User) => friend.id));
+            setFriends(data);
         }
     };
 
