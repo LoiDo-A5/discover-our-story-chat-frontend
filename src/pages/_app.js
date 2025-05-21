@@ -8,7 +8,7 @@ import store from "../redux/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import OneSignal from "react-onesignal";
-import Script from "next/script"; // Import next/script for optimized script loading
+import Script from "next/script";
 
 const MyApp = ({ Component, pageProps }) => {
   useEffect(() => {
@@ -41,18 +41,17 @@ const MyApp = ({ Component, pageProps }) => {
 
   useEffect(() => {
     const initializeOneSignal = async () => {
-      /* istanbul ignore next */
       if (
         (typeof window.OneSignalDeferred === "function" &&
           !OneSignal.User.PushSubscription.id) ||
         typeof window === "undefined"
       ) {
-        return; // Only need to initialize once
+        return;
       }
 
       try {
         await OneSignal.init({
-          appId: "29bf06a5-aadc-4cc6-8a41-b403c3f87e48", // Thay thế bằng APP ID của bạn
+          appId: "29bf06a5-aadc-4cc6-8a41-b403c3f87e48",
           allowLocalhostAsSecureOrigin: true,
         });
 
@@ -83,10 +82,9 @@ const MyApp = ({ Component, pageProps }) => {
   }, []);
   return (
     <>
-      {/* Add the OneSignal SDK script using next/script */}
       <Script
         src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-        strategy="afterInteractive" // Load the script after the page has loaded
+        strategy="afterInteractive"
       />
       <Provider store={store}>
         <ToastContainer />
