@@ -22,9 +22,11 @@ const DirectMessage: React.FC = () => {
     useEffect(() => {
         if (typeof id === 'string' && user?.id) {
             const friendId = parseInt(id);
-            setRoomId(`${Math.min(user.id, friendId)}_${Math.max(user.id, friendId)}`);
+            const userIdNum = Number(user.id);
+            setRoomId(`${Math.min(userIdNum, friendId)}_${Math.max(userIdNum, friendId)}`);
         }
     }, [id, user]);
+
 
     // Call the API to get DirectMessages
     const getListMessages = async () => {
@@ -44,12 +46,13 @@ const DirectMessage: React.FC = () => {
     const [message, setMessage] = useState("");
     const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
-    const handleSendMessage = () => {
-        if (roomId) {
-            sendMessage(message, user?.id || "", id || "");
-            setMessage("");
-        }
-    };
+const handleSendMessage = () => {
+    if (roomId) {
+        const friendId = Array.isArray(id) ? id[0] : id;
+        sendMessage(message, user?.id || "", friendId || "");
+        setMessage("");
+    }
+};
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
@@ -73,7 +76,6 @@ const DirectMessage: React.FC = () => {
                 <List className={classes.messageList}>
                     {listMessages.map((msg, index) => {
                         const isMe = user.id === msg.sender.id;
-                        console.log('111111111111isMe', msg)
                         const formattedTimestamp = moment(msg.timestamp).format('HH:mm DD/MM/YYYY');
                         return (
                             <ListItem key={index} className={isMe ? classes.myMessage : classes.otherMessage}>

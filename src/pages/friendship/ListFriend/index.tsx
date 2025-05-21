@@ -13,7 +13,7 @@ interface ListFriendProps {
     friends: Friend[];
 }
 
-const ListFriend: React.FC<ListFriendProps> = ({ friends }) => {
+const ListFriend: React.FC<ListFriendProps> = ({ friends = [] }) => {
     const classes = useStyles();
     const router = useRouter();
 
