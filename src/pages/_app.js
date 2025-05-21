@@ -39,51 +39,9 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, []);
 
-  useEffect(() => {
-    const initializeOneSignal = async () => {
-      if (
-        (typeof window.OneSignalDeferred === "function" &&
-          !OneSignal.User.PushSubscription.id) ||
-        typeof window === "undefined"
-      ) {
-        return;
-      }
-
-      try {
-        await OneSignal.init({
-          appId: "29bf06a5-aadc-4cc6-8a41-b403c3f87e48",
-          allowLocalhostAsSecureOrigin: true,
-        });
-
-        // Lắng nghe sự kiện thay đổi subscription ID
-        OneSignal.User.PushSubscription.addEventListener(
-          "change",
-          async (change) => {
-            if (change.current.id) {
-              const subscriptionId = change.current.id;
-              await axios.post("/api/registerSignalId", {
-                signal_id: subscriptionId,
-              });
-            }
-          }
-        );
-
-        // Trường hợp người dùng đã đăng ký nhận thông báo
-        const signal_id = OneSignal.User.PushSubscription.id;
-        if (signal_id) {
-          await axios.post("/api/registerSignalId", { signal_id });
-        }
-      } catch (err) {
-        console.error("OneSignal initialization failed", err);
-      }
-    };
-
-    initializeOneSignal();
-  }, []);
   return (
     <>
       <Script
-        src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
         strategy="afterInteractive"
       />
       <Provider store={store}>
