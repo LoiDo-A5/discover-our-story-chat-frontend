@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import Routes from "../utils/Route";
 import { ToastTopHelper } from "@/utils/utils";
 import useStyles from "../styles/sign-up/useSignUpStyle";
+import Logo from "../images/logo.png";
+import Image from "next/image";
 
 interface SignupFormProps { }
 
@@ -83,7 +85,10 @@ const SignupForm: React.FC<SignupFormProps> = () => {
   return (
     <div className={classes.background}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <Typography className={classes.title}>SIGN UP</Typography>
+        <div className={classes.logoContainer}>
+          <Image src={Logo} alt="Logo" className={classes.logo} />
+        </div>
+        <Typography component="h1" variant="h5" className={classes.title} >SIGN UP</Typography>
         <TextField
           label="Name or Nick Name"
           fullWidth
