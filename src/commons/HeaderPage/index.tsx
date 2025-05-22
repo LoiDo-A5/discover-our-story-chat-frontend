@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Routes from '../../utils/Route';
 import useStyles from './styles';
 import { RootState } from '@/utils/types';
+import FriendShipLogo from "../../images/friendship.png";
 
 const HeaderPage: React.FC = () => {
   const classes = useStyles();
@@ -75,11 +76,15 @@ const HeaderPage: React.FC = () => {
               className={classes.logoChatRoom}
               style={{ marginRight: '20px' }}
             />
-            <div onClick={goFriendShip} className={classes.textFriendShip}>Friend Ship</div>
+            <Image
+              onClick={goFriendShip}
+              src={FriendShipLogo}
+              alt=""
+              className={classes.logoChatRoom}
+              style={{ marginRight: '20px' }}
+            />
+            <div onClick={goFriendShip} className={classes.textFriendShip}>Add Friend Here</div>
           </Typography>
-
-
-
           <div>
             <Box>
               <Tooltip title={'Account setting'}>

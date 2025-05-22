@@ -145,7 +145,25 @@ const useStyles = makeStyles(() => ({
     },
   },
   textFriendShip: {
+    display: "inline-block",
+    padding: "8px 16px",
+    backgroundColor: "#1976d2",
+    borderRadius: "8px",
+    fontWeight: 500,
     cursor: "pointer",
+    transition: "all 0.2s ease-in-out",
+    textAlign: "center",
+    userSelect: "none",
+
+    "&:hover": {
+      backgroundColor: "#115293",
+      transform: "translateY(-2px)",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+    },
+
+    "&:active": {
+      transform: "scale(0.98)",
+    },
   },
 }));
 
