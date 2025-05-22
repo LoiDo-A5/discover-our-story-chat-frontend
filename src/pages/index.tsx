@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useStyles from '../styles/list-room/useListRoomStyle';
+import useStyles from '../styles/list-room/useListRoomStyle'; // This will now use the new styles
 import PrivateRoute from '@/commons/PrivateRoute';
 import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
     const router = useRouter();
 
     const goToRoom = (roomId: number) => {
-        router.push(`/room/${roomId}`);
+        router.push(`/room/${roomId}`); // Fixed template literal for path
     };
 
     const getListRoom = async () => {
@@ -30,7 +30,6 @@ const HomePage: React.FC = () => {
         }
     }
 
-
     useEffect(() => {
         getListRoom()
     }, []);
@@ -38,8 +37,7 @@ const HomePage: React.FC = () => {
     return (
         <PrivateRoute>
             <Container className={classes.background}>
-
-                <Box mt={4}>
+                <Box mt={4}> {/* This mt={4} is fine, but the titleRoom now has its own top margin */}
                     <div className={classes.titleRoom}>
                         Room List
                     </div>

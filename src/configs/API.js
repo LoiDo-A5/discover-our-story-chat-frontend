@@ -1,3 +1,5 @@
+// configs/API.ts
+
 const API_ROOT = process.env.NEXT_PUBLIC_API_URL;
 
 const API = {
@@ -18,6 +20,8 @@ const API = {
   FRIENDSHIP: {
     REQUEST_FRIEND: `${API_ROOT}/accounts/friendship/`,
     FRIENDS_LIST: `${API_ROOT}/accounts/friendship/friends_list/`,
+    INCOMING_REQUESTS: `${API_ROOT}/accounts/friendship/incoming_requests/`,
+    ACCEPT_REQUEST: `${API_ROOT}/accounts/friendship/accept_request/`,
   },
 };
 
