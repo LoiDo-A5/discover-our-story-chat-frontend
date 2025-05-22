@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import useStyles from '../styles/list-room/useListRoomStyle'; // This will now use the new styles
+import useStyles from '../styles/list-room/useListRoomStyle';
 import PrivateRoute from '@/commons/PrivateRoute';
 import { axiosGet } from '@/utils/apis/axios';
 import API from '@/configs/API';
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Container, Box, ListItemSecondaryAction } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Box, ListItemSecondaryAction } from '@mui/material'; // Removed Container
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ChatIcon from '@mui/icons-material/Chat';
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ const HomePage: React.FC = () => {
     const router = useRouter();
 
     const goToRoom = (roomId: number) => {
-        router.push(`/room/${roomId}`); // Fixed template literal for path
+        router.push(`/room/${roomId}`);
     };
 
     const getListRoom = async () => {
@@ -36,8 +36,10 @@ const HomePage: React.FC = () => {
 
     return (
         <PrivateRoute>
-            <Container className={classes.background}>
-                <Box mt={4}> {/* This mt={4} is fine, but the titleRoom now has its own top margin */}
+            {/* This div will be the full-page background */}
+            <div className={classes.fullPageBackground}>
+                {/* This Box will serve as the centered content container */}
+                <Box className={classes.contentWrapper}>
                     <div className={classes.titleRoom}>
                         Room List
                     </div>
@@ -60,7 +62,7 @@ const HomePage: React.FC = () => {
                         })}
                     </List>
                 </Box>
-            </Container>
+            </div>
         </PrivateRoute>
     );
 };

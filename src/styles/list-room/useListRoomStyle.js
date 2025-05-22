@@ -1,65 +1,88 @@
 // styles/list-room/useListRoomStyle.ts
 import { makeStyles } from "@mui/styles";
-import Colors from "../../configs/Colors"; // Assuming Colors is defined and accessible
+import Colors from "../../configs/Colors";
+import backgroundImage from "../../images/background.png";
 
 const useStyles = makeStyles((theme) => ({
-  background: {
-    "&.MuiContainer-root": {
-      minHeight: "90vh", // Use minHeight to allow content to expand
-      width: "100%",
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center', // Center content horizontally
-      paddingTop: theme.spacing(4), // Add some top padding
-      paddingBottom: theme.spacing(4), // Add some bottom padding
-      backgroundColor: Colors.Grey1, // A subtle background color for the container
-    },
+  fullPageBackground: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',   
+    minHeight: "100vh",     
+    width: "100%",          
+    backgroundImage: `url(${backgroundImage.src})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
   },
-  boxList: {
-    width: "100%",
-    maxWidth: 600, // Constrain max width for better readability on large screens
-    backgroundColor: theme.palette.background.paper, // Use theme's paper background
-    borderRadius: theme.shape.borderRadius * 2, // More pronounced rounded corners
-    boxShadow: theme.shadows[3], // Add a medium shadow for depth
-    padding: theme.spacing(2), // Inner padding for the list container
-    paddingBottom: theme.spacing(3), // More padding at the bottom
-    maxHeight: "calc(90vh - 180px)", // Adjusted height, consider header/footer if any
-    overflowY: "auto",
-    marginTop: theme.spacing(4), // Space below the title
+
+  contentWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center', 
+    backgroundColor: 'rgba(255, 255, 255, 0.85)', 
+    borderRadius: theme.shape.borderRadius * 3, 
+    boxShadow: theme.shadows[8], 
+    padding: theme.spacing(4), 
+    width: 'auto', 
+    maxWidth: '90%', 
     [theme.breakpoints.down('sm')]: {
-      padding: theme.spacing(1), // Less padding on small screens
-      maxWidth: '95%', // Adjust max width for mobile
+      padding: theme.spacing(2),
+      borderRadius: theme.shape.borderRadius * 2,
+      maxWidth: '95%',
     },
   },
   titleRoom: {
-    marginTop: theme.spacing(8), // Use theme spacing, adjusted for visual balance
-    marginBottom: theme.spacing(2), // Space below the title
-    fontSize: '2.5rem', // Larger font size for impact
+    marginTop: theme.spacing(2), 
+    marginBottom: theme.spacing(4),
+    fontSize: '2.5rem',
     fontWeight: "bold",
-    color: theme.palette.primary.dark, // Use a primary color for the title
-    textAlign: 'center', // Center the title
-    textTransform: 'uppercase', // Make it uppercase
-    letterSpacing: '0.05em', // Add some letter spacing
+    color: theme.palette.primary.dark,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem', // Adjust font size for mobile
-      marginTop: theme.spacing(6),
+      fontSize: '2rem',
+      marginTop: theme.spacing(2), 
+      marginBottom: theme.spacing(3),
+    },
+  },
+  boxList: {
+    width: "60vw", 
+    maxWidth: 800,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.shape.borderRadius * 2,
+    boxShadow: theme.shadows[3],
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
+    maxHeight: "calc(100vh - 250px)", 
+    overflowY: "auto",
+    [theme.breakpoints.down('md')]: {
+      width: "80vw", 
+      padding: theme.spacing(1.5),
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: "95vw",
+      padding: theme.spacing(1),
+      maxHeight: "calc(100vh - 200px)",
     },
   },
   listItemStyle: {
-    backgroundColor: theme.palette.background.default, // A slightly different background for items
-    marginTop: theme.spacing(2), // Space between list items
-    borderRadius: theme.spacing(1), // Rounded corners for each list item
+    backgroundColor: theme.palette.background.default,
+    marginTop: theme.spacing(2),
+    borderRadius: theme.spacing(1),
     height: "70px",
-    border: `1px solid ${Colors.Grey4}`, // Border color
+    border: `1px solid ${Colors.Grey4}`,
     cursor: "pointer",
-    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out', // Smooth transition for hover
+    transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
     '&:hover': {
-      transform: 'translateY(-3px)', // Lift effect on hover
-      boxShadow: theme.shadows[6], // More pronounced shadow on hover
-      backgroundColor: theme.palette.action.hover, // Subtle background change on hover
+      transform: "translateY(-3px)",
+      boxShadow: theme.shadows[6],
+      backgroundColor: theme.palette.action.hover,
     },
     '&:first-child': {
-      marginTop: 0, // No top margin for the first item
+      marginTop: 0,
     },
   },
 }));
