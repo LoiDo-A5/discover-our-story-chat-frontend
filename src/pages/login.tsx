@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
             required
             fullWidth
             id="username"
-            label="Username"
+            label="Your Phone"
             name="username"
             autoComplete="username"
             autoFocus
