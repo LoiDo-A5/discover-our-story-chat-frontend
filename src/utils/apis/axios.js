@@ -87,7 +87,6 @@ async function refreshToken() {
       },
     }
   );
-
   return response.data;
 }
 
@@ -110,7 +109,7 @@ async function axiosCall(method, ...args) {
         axios.defaults.headers["Authorization"] = `Bearer ${access}`;
         response = await axios[method](...args);
       } catch (refreshError) {
-        reactLocalStorage.clear()
+        reactLocalStorage.clear();
         ToastTopHelper.error("Your session has expired. Please log in again.");
         window.location.href = "/login";
       }
@@ -122,7 +121,12 @@ async function axiosCall(method, ...args) {
     }
   }
 
+  if (!response || !response.data) {
+    return { success: false, error: "No data received from the server" };
+  }
+
   const { data } = response;
+
   return {
     success: true,
     data,
