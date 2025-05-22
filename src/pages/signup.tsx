@@ -8,7 +8,7 @@ import Routes from "../utils/Route";
 import { ToastTopHelper } from "@/utils/utils";
 import useStyles from "../styles/sign-up/useSignUpStyle";
 
-interface SignupFormProps {}
+interface SignupFormProps { }
 
 const SignupForm: React.FC<SignupFormProps> = () => {
   const classes = useStyles();
@@ -19,10 +19,21 @@ const SignupForm: React.FC<SignupFormProps> = () => {
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   const validateForm = () => {
-    if (!email || !phone || !password || !confirmPassword) {
+    if (!email || !phone || !password || !confirmPassword || !name) {
       ToastTopHelper.error("All fields are required");
+      return false;
+    }
+
+    if (!name.trim()) {
+      ToastTopHelper.error("Name is required");
+      return false;
+    }
+
+    if (name.length > 20) {
+      ToastTopHelper.error("Name cannot be longer than 20 characters");
       return false;
     }
 
@@ -56,8 +67,10 @@ const SignupForm: React.FC<SignupFormProps> = () => {
       phone: phone,
       password1: password,
       password2: confirmPassword,
+      name: name,
     });
 
+    console.log('name', name)
     if (success) {
       router.push(Routes.Home);
     }
@@ -71,6 +84,15 @@ const SignupForm: React.FC<SignupFormProps> = () => {
     <div className={classes.background}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <Typography className={classes.title}>SIGN UP</Typography>
+        <TextField
+          label="Name or Nick Name"
+          fullWidth
+          variant="outlined"
+          margin="normal"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <TextField
           label="Email"
           fullWidth
@@ -117,9 +139,7 @@ const SignupForm: React.FC<SignupFormProps> = () => {
           Sign Up
         </Button>
         <div onClick={handleNavigateSignUp} className={classes.signupLink}>
-          <Link variant="body2">
-            Already have an account? Sign in
-          </Link>
+          <Link variant="body2">Already have an account? Sign in</Link>
         </div>
       </form>
     </div>
